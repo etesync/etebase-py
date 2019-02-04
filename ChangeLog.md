@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.6.2
+* Add shell scripts for executing tests
+
+## Version 0.6.1
+* Fix journal integrity issue when syncing more than one collection item.
+
 ## Version 0.6.0
 * Add tasks support
 

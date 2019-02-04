@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='etesync',
-    version='0.6.0',
+    version='0.6.2',
     author='EteSync',
     author_email='development@etesync.com',
     url='https://github.com/etesync/pyetesync',
@@ -31,7 +31,7 @@ setup(
        'pyparsing>=2.2',
        'pyscrypt>=1.6',
        'python-dateutil>=2.6',
-       'requests>=2.13',
+       'requests>=2.21',
        'six>=1.10',
        'vobject>=0.9',
     ]

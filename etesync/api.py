@@ -110,8 +110,7 @@ class EteSync:
             journal.save()
 
     def sync_journal(self, uid):
-        # FIXME: At the moment if there's a conflict remote would win, which is
-        # not good and doesn't conform to java client. Copy what's done there.
+        # FIXME: At the moment if there's a conflict remote would win.
         self.pull_journal(uid)
         self.push_journal(uid)
 
@@ -196,6 +195,8 @@ class EteSync:
             raw_entry = service.RawEntry(crypto_manager)
             raw_entry.update(sync_entry.to_json().encode(), prev)
             entries.append(raw_entry)
+
+            prev = raw_entry
 
         manager.add(entries, last_uid)
 
