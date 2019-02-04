@@ -83,14 +83,10 @@ class EtesyncCRUD:
 
         Returns
         -------
-        On success returns iCalendar file (as a string)
-        Otherwise returns None (Error is stored in self.error)
+        iCalendar file (as a string)
         """
-        try:
-            return self.calendar.get(uid).content
-        except Exception as inst:
-            self.error = inst
-            return None
+        return self.calendar.get(uid).content
+
 
     def all_events(self):
         """Retrieve all events in calendar
@@ -99,7 +95,7 @@ class EtesyncCRUD:
         -------
         List of iCalendar files (as strings)
         """
-        return [E.content for E in self.calendar.list()]
+        return [e.content for e in self.calendar.list()]
 
     def delete_event(self, uid):
         """Delete event and sync calendar
