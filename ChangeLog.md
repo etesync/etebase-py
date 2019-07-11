@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.9.0
+* Fix reinit of the EteSync object (fixes tests)
+* Bump minor version as should have been done in the previous release.
+
 ## Version 0.8.4
 * Allow users of this library to add tables to the cache database.
 * Make the sqlite database more strict (enforce foreign key relations).
