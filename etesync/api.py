@@ -299,6 +299,8 @@ class ApiObjectBase:
 
     @property
     def uid(self):
+        if self._cache_obj.uid is None:
+            return None
         return str(self._cache_obj.uid)
 
     @uid.setter
@@ -337,6 +339,8 @@ class PimObject(ApiObjectBase):
                 collection.__class__.__name__, cls.__name__))
         ret = super().create(collection.journal, None, None)
         ret.content = content
+        if ret.uid is None:
+            return None
         return ret
 
     @property
@@ -361,21 +365,30 @@ class Event(PimObject):
     @classmethod
     def get_uid(cls, content):
         vobj = vobject.readOne(content)
-        return vobj.vevent.uid.value
+        try:
+            return vobj.vevent.uid.value
+        except AttributeError:
+            return None
 
 
 class Contact(PimObject):
     @classmethod
     def get_uid(cls, content):
         vobj = vobject.readOne(content)
-        return vobj.uid.value
+        try:
+            return vobj.uid.value
+        except AttributeError:
+            return None
 
 
 class Task(PimObject):
     @classmethod
     def get_uid(cls, content):
         vobj = vobject.readOne(content)
-        return vobj.vtodo.uid.value
+        try:
+            return vobj.vtodo.uid.value
+        except AttributeError:
+            return None
 
 
 class BaseCollection:
@@ -409,6 +422,10 @@ class BaseCollection:
     def apply_sync_entry(self, sync_entry):
         journal = self._cache_obj
         uid = self.get_content_class().get_uid(sync_entry.content)
+        if uid is None:
+            print("WARNING: uid not found for entry, skipping. Content:")
+            print(sync_entry.content)
+            return
 
         try:
             content = pim.Content.get(uid=uid, journal=journal)

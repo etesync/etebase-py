@@ -132,6 +132,14 @@ class TestCollection:
         with pytest.raises(exceptions.DoesNotExist):
             c.get('bla')
 
+        # Fail creating an event without a uid.
+        ev = api.Event.create(a,
+                              'BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:+//Yo\r\nBEGIN:VEVENT\r\nDTSTAMP:20170324T164' +
+                              '747Z\r\nDTSTART;VALUE\u003dDATE:20170324' +
+                              '\r\nDTEND;VALUE\u003dDATE:20170325\r\nSUMMARY:Feed cat\r\nSTATUS:CONFIRMED\r\nTRANSP:' +
+                              'TRANSPARENT\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n')
+        assert ev is None
+
     def test_unicode(self, etesync):
         a = api.Calendar.create(etesync, get_random_uid(self), {'displayName': 'יוניקוד'})
 
