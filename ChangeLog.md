@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.9.1
+* Gracefully handle entries without a UID.
+
 ## Version 0.9.0
 * Fix reinit of the EteSync object (fixes tests)
 * Bump minor version as should have been done in the previous release.
