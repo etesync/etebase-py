@@ -54,7 +54,7 @@ class RawBase:
 
     def _verify_hmac(self, hmac1, hmac2):
         if hmac1 != hmac2:
-            raise exceptions.IntegrityException("HMAC misatch: {} != {}".format(
+            raise exceptions.IntegrityException("HMAC mismatch: {} != {}".format(
                 binascii.hexlify(hmac1).decode(), binascii.hexlify(hmac2).decode()))
 
 
