@@ -17,10 +17,11 @@ def printEntry(entry):
     print()
 
 
-email = sys.argv[1]
-servicePassword = sys.argv[2]
-userPassword = sys.argv[3]
-remoteUrl = sys.argv[4]
+try:
+    _, email, servicePassword, userPassword, remoteUrl = sys.argv
+except ValueError:
+    sys.exit('Incorrect arguments!\nRequired: <email> <servicePassword> '
+             '<userPassword> <remoteUrl>')
 
 # Token should be saved intead of requested every time
 authToken = api.Authenticator(remoteUrl).get_auth_token(email, servicePassword)
