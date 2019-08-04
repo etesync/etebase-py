@@ -96,4 +96,3 @@ And then add two users:
 Password for both: SomePassword
 
 That's it.
-
