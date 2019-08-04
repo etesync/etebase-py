@@ -18,7 +18,6 @@ setup(
        'appdirs>=1.4',
        'asn1crypto>=0.22',
        'cffi>=1.10',
-       'coverage>=4.3',
        'cryptography>=1.9',
        'furl>=0.5',
        'idna>=2.5',
