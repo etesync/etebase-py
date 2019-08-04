@@ -42,16 +42,6 @@ Docs are currently missing but are planned.
 
 ## Running the example script
 
-You'll need virtualenv to get the dependencies.
-
-Either install your distro's package, for example `python3-virtualenv`
-
-or get it from pip:
-
-```
-pip3 install virtualenv
-```
-
 You may also need to make sure you have the OpenSSL development package
 installed (e.g. `openssl-dev`).
 
@@ -65,7 +55,7 @@ cd pyetesync
 Setup the environment:
 
 ```
-virtualenv venv
+python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.in/requirements-dev.txt
 ```
