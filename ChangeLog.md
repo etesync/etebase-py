@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.9.2
+* Remove dev dep (coverage) from setup.py
+
 ## Version 0.9.1
 * Gracefully handle entries without a UID.
 
