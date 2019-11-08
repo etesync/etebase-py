@@ -11,7 +11,8 @@ setup(
     description='Python client library for EteSync',
     keywords=['etesync', 'encryption', 'sync', 'pim'],
     license='LGPL',
-    long_description=open('DESCRIPTION.rst').read(),
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     packages=find_packages(exclude=("tests",)),
     include_package_data=True,
     install_requires=[
