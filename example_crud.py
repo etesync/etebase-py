@@ -47,6 +47,11 @@ class EtesyncCRUD:
             self.etesync.cipher_key = cipher_key
         else:
             self.etesync.derive_key(userPassword)
+        # needs to be done once on any machine
+        # else the get on the next line fails
+        silent or print("Syncing with server. Please wait")
+        self.etesync.sync()
+        silent or print("Syncing completed.")
         self.journal = self.etesync.get(uid)
         self.calendar = self.journal.collection
 
