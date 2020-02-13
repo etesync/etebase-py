@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.9.3
+* Provide more explicit copyright and licensing information.
+
 ## Version 0.9.2
 * Remove dev dep (coverage) from setup.py
 
