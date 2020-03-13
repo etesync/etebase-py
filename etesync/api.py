@@ -58,7 +58,10 @@ class EteSync:
         if directory != '' and not os.path.exists(directory):
             os.makedirs(directory)
 
-        database = SqliteExtDatabase(db_path, pragmas={'foreign_keys': 1})
+        database = SqliteExtDatabase(db_path, pragmas={
+            'journal_mode': 'wal',
+            'foreign_keys': 1,
+            })
         database.connect()
 
         self._set_db(database)
