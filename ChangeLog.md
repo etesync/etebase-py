@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.10.0
+* Change database model to WAL which should improve concurrency
+
 ## Version 0.9.3
 * Provide more explicit copyright and licensing information.
 
