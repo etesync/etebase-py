@@ -67,7 +67,7 @@ class EteSync:
         self._set_db(database)
 
     def _init_db_tables(self, database, additional_tables=None):
-        CURRENT_DB_VERSION = 1
+        CURRENT_DB_VERSION = 2
 
         new_db = not database.table_exists('journalentity')
 
@@ -93,6 +93,18 @@ class EteSync:
                 pass
 
             config.db_version = 1
+            config.save()
+
+
+        if config.db_version < 2:
+            from playhouse.migrate import SqliteMigrator, migrate
+            migrator = SqliteMigrator(database)
+
+            migrate(
+                migrator.add_column('journalentity', 'remote_last_uid', cache.JournalEntity.remote_last_uid),
+            )
+
+            config.db_version = 2
             config.save()
 
     def get_or_create_user_info(self, force_fetch=False):
@@ -152,6 +164,7 @@ class EteSync:
             journal.version = entry.version
             journal.encrypted_key = entry.encrypted_key
             journal.read_only = entry.read_only
+            journal.remote_last_uid = entry.remote_last_uid
             journal.content = entry.getContent()
             journal.save()
 
@@ -221,6 +234,9 @@ class EteSync:
 
         prev = self._get_last_entry(journal)
         last_uid = None if prev is None else prev.uid
+
+        if (last_uid is not None) and (last_uid == journal.remote_last_uid):
+            return
 
         for entry in manager.list(crypto_manager, last_uid):
             entry.verify(prev)

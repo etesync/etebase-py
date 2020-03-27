@@ -36,6 +36,7 @@ class JournalEntity(db.BaseModel):
     dirty = pw.BooleanField(null=False, default=False)
     deleted = pw.BooleanField(null=False, default=False)
     read_only = pw.BooleanField(null=False, default=False)
+    remote_last_uid = pw.CharField(null=True, default=None)
 
     class Meta:
         indexes = (

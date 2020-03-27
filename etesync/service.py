@@ -73,7 +73,7 @@ class RawBase:
 
 
 class RawJournal(RawBase):
-    def __init__(self, crypto_manager, content=None, uid=None, owner=None, encrypted_key=None, read_only=False):
+    def __init__(self, crypto_manager, content=None, uid=None, owner=None, encrypted_key=None, read_only=False, remote_last_uid=None):
         super().__init__(crypto_manager, content, uid)
         if content is not None:
             self.hmac = content[:HMAC_SIZE]
@@ -81,6 +81,7 @@ class RawJournal(RawBase):
         self.owner = owner
         self.encrypted_key = encrypted_key
         self.read_only = read_only
+        self.remote_last_uid = remote_last_uid
 
     def calc_hmac(self):
         return self.crypto_manager.hmac(self.uid.encode() + self.content)
@@ -184,10 +185,11 @@ class JournalManager(BaseManager):
             owner = j['owner']
             key = j['key']
             readOnly = j['readOnly']
+            last_uid = j.get('lastUid', None)
             encrypted_key = base64.b64decode(key) if key is not None else None
             crypto_manager = CryptoManager(version, password, uid.encode())
             journal = RawJournal(crypto_manager=crypto_manager, content=content, uid=uid, owner=owner,
-                                 encrypted_key=encrypted_key, read_only=readOnly)
+                                 encrypted_key=encrypted_key, read_only=readOnly, remote_last_uid=last_uid)
             yield journal
 
     def add(self, journal):
