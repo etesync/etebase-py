@@ -129,7 +129,6 @@ class TestService:
         etesync.sync()
 
         # Reset the db
-        prev_db = etesync._database
         etesync._init_db(TEST_DB)
         assert len(list(etesync.list())) == 0
         etesync.sync()
@@ -141,8 +140,8 @@ class TestService:
         etesync.sync()
 
         # Reset the db
-        etesync._set_db(prev_db)
-        assert len(list(etesync.list())) == 2
+        etesync._init_db(TEST_DB)
+        assert len(list(etesync.list())) == 0
         etesync.sync()
 
         assert len(list(etesync.list())) == 1
