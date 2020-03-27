@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.11.0
+* Make sync faster by only fetching entries when journals have changed.
+* Change the scrypt dep in setup.py to scrypt (from pyscrypt, which is still supported as a fallback).
+* Set the user agent when making requests.
+
 ## Version 0.10.0
 * Change database model to WAL which should improve concurrency
 
