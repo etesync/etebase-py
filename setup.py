@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='etesync',
-    version='0.10.0',
+    version='0.11.0',
     author='Tom Hacohen',
     author_email='tom@stosb.com',
     url='https://github.com/etesync/pyetesync',
