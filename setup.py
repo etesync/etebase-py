@@ -29,7 +29,7 @@ setup(
         'pyasn1>=0.2',
         'pycparser>=2.17',
         'pyparsing>=2.2',
-        'pyscrypt>=1.6',
+        'scrypt>=0.8.13',  # pyscrypt is also supported as a fallback, but better to use scrypt
         'python-dateutil>=2.6',
         'pytz>=2019.1',
         'requests>=2.21',
