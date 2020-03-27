@@ -67,13 +67,19 @@ class EteSync:
         self._set_db(database)
 
     def _init_db_tables(self, database, additional_tables=None):
+        CURRENT_DB_VERSION = 1
+
+        new_db = not database.table_exists('journalentity')
+
         database.create_tables([cache.Config, pim.Content, cache.User, cache.JournalEntity,
                                 cache.EntryEntity, cache.UserInfo], safe=True)
         if additional_tables:
             database.create_tables(additional_tables, safe=True)
 
-        db_version = cache.Config.get_or_none()
-        if db_version is None:
+        default_db_version = CURRENT_DB_VERSION if new_db else 0
+        config, created = cache.Config.get_or_create(defaults={'db_version': default_db_version})
+
+        if config.db_version < 1:
             from playhouse.migrate import SqliteMigrator, migrate
             # Essentially version 0 so do first migration.
             migrator = SqliteMigrator(database)
@@ -86,7 +92,8 @@ class EteSync:
                 # A hack because we don't have a db config yet.
                 pass
 
-            cache.Config.insert(db_version=1).execute()
+            config.db_version = 1
+            config.save()
 
     def get_or_create_user_info(self, force_fetch=False):
         user_info = None
