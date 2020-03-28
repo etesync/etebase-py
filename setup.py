@@ -2,9 +2,11 @@
 
 from setuptools import find_packages, setup
 
+exec(open('etesync/_version.py').read())
+
 setup(
     name='etesync',
-    version='0.11.0',
+    version=__version__,
     author='Tom Hacohen',
     author_email='tom@stosb.com',
     url='https://github.com/etesync/pyetesync',
