@@ -23,7 +23,6 @@ pyparsing==2.4.2          # via etesync (setup.py), packaging
 python-dateutil==2.8.0    # via etesync (setup.py), vobject
 pytz==2019.2              # via etesync (setup.py)
 requests==2.22.0          # via etesync (setup.py)
-scrypt==0.8.13            # via etesync (setup.py)
 six==1.12.0               # via cryptography, etesync (setup.py), furl, orderedmultidict, packaging, python-dateutil
 urllib3==1.25.3           # via requests
 vobject==0.9.6.1          # via etesync (setup.py)

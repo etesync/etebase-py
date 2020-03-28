@@ -20,27 +20,37 @@ import os
 import hashlib
 import hmac
 
-try:
-    import scrypt
-
+if hasattr(hashlib, 'scrypt'):
     def derive_key(user_password, salt):
-        return scrypt.hash(password=user_password.encode(),
-                           salt=salt.encode(),
-                           N=16384,
-                           r=8,
-                           p=1,
-                           buflen=190)
+        return hashlib.scrypt(password=user_password.encode(),
+                              salt=salt.encode(),
+                              n=16384,
+                              r=8,
+                              p=1,
+                              dklen=190)
 
-except ImportError:
-    import pyscrypt
+else:
+    try:
+        import scrypt
 
-    def derive_key(user_password, salt):
-        return pyscrypt.hash(password=user_password.encode(),
-                             salt=salt.encode(),
-                             N=16384,
-                             r=8,
-                             p=1,
-                             dkLen=190)
+        def derive_key(user_password, salt):
+            return scrypt.hash(password=user_password.encode(),
+                               salt=salt.encode(),
+                               N=16384,
+                               r=8,
+                               p=1,
+                               buflen=190)
+
+    except ImportError:
+        import pyscrypt
+
+        def derive_key(user_password, salt):
+            return pyscrypt.hash(password=user_password.encode(),
+                                 salt=salt.encode(),
+                                 N=16384,
+                                 r=8,
+                                 p=1,
+                                 dkLen=190)
 
 from . import exceptions
 
