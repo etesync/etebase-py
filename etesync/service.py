@@ -21,6 +21,7 @@ from furl import furl
 
 from .crypto import CryptoManager, HMAC_SIZE
 from . import exceptions
+from ._version import __version__
 
 API_PATH = ('api', 'v1')
 
@@ -141,7 +142,10 @@ class RawUserInfo(RawBase):
 
 class BaseManager:
     def __init__(self, auth_token):
-        headers = {'Authorization': 'Token ' + auth_token}
+        headers = {
+            'User-Agent': 'pyetesync/' + __version__,
+            'Authorization': 'Token ' + auth_token,
+        }
         self.requests = requests.Session()
         self.requests.headers.update(headers)
 
