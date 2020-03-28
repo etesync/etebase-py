@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.11.1
+* Use the hashlib scrypt implementation if available, otherwise fallback to scrypt or pyscrypt
+
 ## Version 0.11.0
 * Make sync faster by only fetching entries when journals have changed.
 * Change the scrypt dep in setup.py to scrypt (from pyscrypt, which is still supported as a fallback).
