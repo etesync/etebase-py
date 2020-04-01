@@ -1,3 +1,3 @@
 #!/bin/bash
 
-pytest "$@"
+pytest tests integration_tests "$@"
