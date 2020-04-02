@@ -16,6 +16,7 @@ import pytest
 import binascii
 import requests
 import json
+import os
 
 import etesync as api
 from etesync import exceptions
@@ -30,6 +31,7 @@ USER2_EMAIL = 'test2@localhost'
 TEST_REMOTE = 'http://localhost:8000/'
 TEST_DB = ':memory:'
 
+WANT_INTEGRATION_TESTS = bool(os.environ.get('EXTENDED_TESTING', False))
 
 # Gets fake (consistent between tests) random numbers
 def get_random_uid(context):
@@ -49,6 +51,7 @@ def etesync():
     return api.EteSync(USER_EMAIL, token, remote=TEST_REMOTE, db_path=TEST_DB)
 
 
+@pytest.mark.skipif(not WANT_INTEGRATION_TESTS, reason='Skipping itegration tests because EXTENDED_TESTING env var is unset.')
 class TestService:
     @pytest.fixture(autouse=True)
     def transact(self, request, etesync):

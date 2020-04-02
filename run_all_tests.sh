@@ -1,3 +1,3 @@
 #!/bin/bash
 
-pytest "$@"
+EXTENDED_TESTING=1 pytest "$@"
