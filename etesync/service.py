@@ -37,7 +37,8 @@ class Authenticator:
         self.remote.path.normalize()
 
     def get_auth_token(self, username, password):
-        response = requests.post(self.remote.url, data={'username': username, 'password': password})
+        headers = {'User-Agent': 'pyetesync/' + __version__}
+        response = requests.post(self.remote.url, data={'username': username, 'password': password}, headers=headers)
         if response.status_code == HTTPStatus.BAD_REQUEST:
             raise exceptions.UnauthorizedException("Username or password incorrect.")
         elif not _status_success(response.status_code):
