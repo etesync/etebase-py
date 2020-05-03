@@ -24,6 +24,7 @@ from . import exceptions
 from ._version import __version__
 
 API_PATH = ('api', 'v1')
+USER_AGENT = 'pyetesync/' + __version__
 
 
 def _status_success(status_code):
@@ -37,7 +38,8 @@ class Authenticator:
         self.remote.path.normalize()
 
     def get_auth_token(self, username, password):
-        response = requests.post(self.remote.url, data={'username': username, 'password': password})
+        headers = {'User-Agent': USER_AGENT}
+        response = requests.post(self.remote.url, data={'username': username, 'password': password}, headers=headers)
         if response.status_code == HTTPStatus.BAD_REQUEST:
             raise exceptions.UnauthorizedException("Username or password incorrect.")
         elif not _status_success(response.status_code):
@@ -143,7 +145,7 @@ class RawUserInfo(RawBase):
 class BaseManager:
     def __init__(self, auth_token):
         headers = {
-            'User-Agent': 'pyetesync/' + __version__,
+            'User-Agent': USER_AGENT,
             'Authorization': 'Token ' + auth_token,
         }
         self.requests = requests.Session()
