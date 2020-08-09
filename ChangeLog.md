@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.12.0
+* Update cryptography dep
+
 ## Version 0.11.1
 * Use the hashlib scrypt implementation if available, otherwise fallback to scrypt or pyscrypt
 
