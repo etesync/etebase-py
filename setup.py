@@ -21,7 +21,7 @@ setup(
         'appdirs>=1.4',
         'asn1crypto>=0.22',
         'cffi>=1.10',
-        'cryptography>=1.9',
+        'cryptography>=3.0',
         'furl>=0.5',
         'idna>=2.5',
         'orderedmultidict>=0.7',

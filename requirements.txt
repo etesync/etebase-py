@@ -5,12 +5,12 @@
 #    pip-compile --output-file=requirements.txt setup.py
 #
 appdirs==1.4.3            # via etesync (setup.py)
-asn1crypto==0.24.0        # via cryptography, etesync (setup.py)
+asn1crypto==0.24.0        # via etesync (setup.py)
 attrs==19.1.0             # via packaging
 certifi==2019.6.16        # via requests
 cffi==1.12.3              # via cryptography, etesync (setup.py)
 chardet==3.0.4            # via requests
-cryptography==2.7         # via etesync (setup.py)
+cryptography==3.0         # via etesync (setup.py)
 furl==2.0.0               # via etesync (setup.py)
 idna==2.8                 # via etesync (setup.py), requests
 orderedmultidict==1.0.1   # via etesync (setup.py), furl
