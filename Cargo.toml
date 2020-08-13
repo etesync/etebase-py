@@ -7,7 +7,7 @@ version = "0.1.0"
 authors = ["Tom Hacohen <tom@stosb.com>"]
 edition = "2018"
 license = "LGPL-2.1-only"
-readme = "../README.md"
+readme = "README.md"
 
 [lib]
 name = "etebase"
