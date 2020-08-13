@@ -1,0 +1,5 @@
+include Cargo.toml
+include Cargo.lock
+include README.md
+recursive-include src *
+recursive-include deps *

@@ -10,7 +10,6 @@ license = "LGPL-2.1-only"
 readme = "README.md"
 
 [lib]
-name = "etebase"
 crate-type = ["cdylib"]
 
 [build-dependencies]
@@ -20,4 +19,4 @@ log = "^0.4.6"
 
 [dependencies]
 cpython = { version = "0.3", features = ["extension-module"] }
-etebase = { path = "../" }
+etebase = { path = "./deps/etebase" }
