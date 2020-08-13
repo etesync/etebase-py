@@ -20,16 +20,17 @@ import os
 import hashlib
 import hmac
 
-if hasattr(hashlib, 'scrypt'):
-    def derive_key(user_password, salt):
-        return hashlib.scrypt(password=user_password.encode(),
-                              salt=salt.encode(),
-                              n=16384,
-                              r=8,
-                              p=1,
-                              dklen=190)
+try:
+    from hashlib import scrypt
 
-else:
+    def derive_key(user_password, salt):
+        return scrypt(password=user_password.encode(),
+                      salt=salt.encode(),
+                      n=16384,
+                      r=8,
+                      p=1,
+                      dklen=190)
+except ImportError:
     try:
         import scrypt
 
