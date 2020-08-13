@@ -325,6 +325,7 @@ foreign_class!(class CollectionManager {
     private constructor = empty;
     fn CollectionManager_::fetch(&self, col_uid: &str, fetch_options: Option<FetchOptions>) -> Result<Collection, Error>;
     fn CollectionManager::create(&self, meta: &CollectionMetadata, content: &[u8]) -> Result<Collection, Error>;
+    fn CollectionManager::create_raw(&self, meta: &[u8], content: &[u8]) -> Result<Collection, Error>;
     fn CollectionManager::item_manager(&self, col: &Collection) -> Result<ItemManager, Error>; alias get_item_manager;
     fn CollectionManager_::list(&self, fetch_options: Option<FetchOptions>) -> Result<CollectionListResponse, Error>;
     fn CollectionManager_::upload(&self, collection: &Collection, fetch_options: Option<FetchOptions>) -> Result<(), Error>;
@@ -346,6 +347,10 @@ mod ItemManager_ {
 
     pub fn create(this: &ItemManager, meta: &ItemMetadata, content: &[u8]) -> Result<Item, Error> {
         Ok(Item::new(this.create(meta, content)?))
+    }
+
+    pub fn create_raw(this: &ItemManager, meta: &[u8], content: &[u8]) -> Result<Item, Error> {
+        Ok(Item::new(this.create_raw(meta, content)?))
     }
 
     pub fn list(mgr: &ItemManager, fetch_options: Option<FetchOptions>) -> Result<ItemListResponse, Error> {
@@ -406,6 +411,7 @@ foreign_class!(class ItemManager {
     private constructor = empty;
     fn ItemManager_::fetch(&self, item_uid: &str, fetch_options: Option<FetchOptions>) -> Result<Item, Error>;
     fn ItemManager_::create(&self, meta: &ItemMetadata, content: &[u8]) -> Result<Item, Error>;
+    fn ItemManager_::create_raw(&self, meta: &[u8], content: &[u8]) -> Result<Item, Error>;
     fn ItemManager_::list(&self, fetch_options: Option<FetchOptions>) -> Result<ItemListResponse, Error>;
     fn ItemManager_::fetch_updates(&self, items: Vec<Item>, fetch_options: Option<FetchOptions>) -> Result<ItemListResponse, Error>;
     fn ItemManager_::batch(&self, items: Vec<Item>, deps: Option<Vec<Item>>, fetch_options: Option<FetchOptions>) -> Result<(), Error>;
@@ -628,7 +634,7 @@ foreign_class!(class SignedInvitation {
     fn SignedInvitation_::username(&self) -> String; alias get_username;
     fn SignedInvitation_::collection(&self) -> String; alias get_collection;
     fn SignedInvitation_::get_access_level(&self) -> String;
-    fn SignedInvitation::from_pubkey(&self) -> &[u8];
+    fn SignedInvitation::from_pubkey(&self) -> &[u8]; alias get_from_pubkey;
 });
 
 mod CollectionMember_ {

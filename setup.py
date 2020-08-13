@@ -14,6 +14,9 @@ setup(
     license='LGPL-3.0-only',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
+    install_requires=[
+        'msgpack>=1.0.0',
+    ],
     # rust extensions are not zip safe, just like C-extensions.
     zip_safe=False,
 )
