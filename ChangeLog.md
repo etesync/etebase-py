@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.12.1
+* Change how we import scrypt from hashlib to be more pythonic
+
 ## Version 0.12.0
 * Update cryptography dep
 
