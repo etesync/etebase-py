@@ -12,22 +12,14 @@ This package is implemented in Rust and exposes a Python API for people to use.
 
 # Build
 
-## Install maturin
+## Install deps
 
 ```
-pip install maturin
+pip install wheel setuptools setuptools-rust
 ```
 
 ## Build
 
-Debug:
-
 ```
-maturin build --manylinux off
-```
-
-Release:
-
-```
-maturin build --manylinux off --release --strip
+python setup.py bdist_wheel
 ```
