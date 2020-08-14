@@ -3,6 +3,17 @@ cache: cargo
 if: tag IS present
 jobs:
   include:
+    - name: "Linux"
+      services: docker
+      dist: bionic
+      before_install:
+        - sudo apt-get -y install python3-pip
+      env:
+        - CIBW_BEFORE_ALL_LINUX="curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y"
+        - CIBW_BEFORE_BUILD="pip install -U setuptools-rust"
+        - CIBW_BUILD_VERBOSITY="1"   # Make some more noise so that travis doesn't stall
+        - CIBW_ENVIRONMENT='PATH="$PATH:$HOME/.cargo/bin"'
+        - CIBW_SKIP="cp27-* cp34-* cp35-* pp*"
     - name: "macOS"
       os: osx
       osx_image: xcode11
