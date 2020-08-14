@@ -1,0 +1,41 @@
+language: rust
+cache: cargo
+if: tag IS present
+jobs:
+  include:
+    - name: "macOS"
+      os: osx
+      osx_image: xcode11
+      env:
+        - CIBW_SKIP="cp27-* cp34-* cp35-* pp*"
+    - name: "Windows"
+      os: windows           # Windows 10.0.17134 N/A Build 17134
+      before_install:
+        - choco install python --version 3.8.0
+        - choco install strawberryperl
+        - python -m pip install --upgrade pip
+      env:
+        - PATH=/c/Python38:/c/Python38/Scripts:/c/Strawberry/perl/site/bin:/c/Strawberry/perl/bin:/c/Strawberry/c/bin:$PATH
+        - CIBW_SKIP="cp27-* cp34-* cp35-* pp* *-win32"
+install:
+    - |
+      pip3 install --upgrade pip wheel setuptools setuptools-rust
+      pip3 install --upgrade pip cibuildwheel
+script:
+    - |
+      if [ "$TRAVIS_OS_NAME" = "windows" ]; then
+          # XXX Disabled for now rustup target add i686-pc-windows-msvc
+          python -m cibuildwheel --output-dir wheelhouse
+      else
+          python3 -m cibuildwheel --output-dir wheelhouse
+      fi
+deploy:
+  provider: releases
+  api_key: $RELEASE_TOKEN
+  file_glob: true
+  file: wheelhouse/*
+  skip_cleanup: true
+  draft: true
+  on:
+      tag: true
+  name: $TRAVIS_TAG (DRAFT)
