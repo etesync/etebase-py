@@ -14,6 +14,7 @@ setup(
     license='LGPL-3.0-only',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
+    python_requires='>=3',
     install_requires=[
         'msgpack>=1.0.0',
     ],
