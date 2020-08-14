@@ -1,7 +1,13 @@
+import functools
+
 import msgpack
 
 from .etebase_python import Base64Url, PrefetchOption
 from . import etebase_python
+
+
+def cached_property(f):
+    return property(functools.lru_cache(maxsize=1)(f))
 
 
 def msgpack_encode(content):
@@ -101,7 +107,7 @@ class CollectionListResponse:
     def __init__(self, inner):
         self._inner = inner
 
-    @property
+    @cached_property
     def stoken(self):
         return self._inner.get_stoken()
 
@@ -109,7 +115,7 @@ class CollectionListResponse:
     def data(self):
         return map(lambda x: Collection(x), self._inner.get_data())
 
-    @property
+    @cached_property
     def done(self):
         return self._inner.is_done()
 
@@ -122,7 +128,7 @@ class ItemListResponse:
     def __init__(self, inner):
         self._inner = inner
 
-    @property
+    @cached_property
     def stoken(self):
         return self._inner.get_stoken()
 
@@ -130,7 +136,7 @@ class ItemListResponse:
     def data(self):
         return map(lambda x: Item(x), self._inner.get_data())
 
-    @property
+    @cached_property
     def done(self):
         return self._inner.is_done()
 
@@ -261,6 +267,8 @@ class Collection:
 
     @meta.setter
     def meta(self, value):
+        self.__class__.meta.fget.cache_clear()
+        self.__class__.meta_raw.fget.cache_clear()
         value = msgpack_encode(_verify_col_meta(value))
         self._inner.set_meta_raw(value)
 
@@ -270,14 +278,17 @@ class Collection:
 
     @meta_raw.setter
     def meta_raw(self, value):
+        self.__class__.meta.fget.cache_clear()
+        self.__class__.meta_raw.fget.cache_clear()
         self._inner.set_meta_raw(value)
 
-    @property
+    @cached_property
     def content(self):
         return bytes(self._inner.get_content())
 
     @content.setter
     def content(self, value):
+        self.__class__.content.fget.cache_clear()
         self._inner.set_content(value)
 
     def delete(self):
@@ -321,6 +332,8 @@ class Item:
 
     @meta.setter
     def meta(self, value):
+        self.__class__.meta.fget.cache_clear()
+        self.__class__.meta_raw.fget.cache_clear()
         value = msgpack_encode(value)
         self._inner.set_meta_raw(value)
 
@@ -330,14 +343,17 @@ class Item:
 
     @meta_raw.setter
     def meta_raw(self, value):
+        self.__class__.meta.fget.cache_clear()
+        self.__class__.meta_raw.fget.cache_clear()
         self._inner.set_meta_raw(value)
 
-    @property
+    @cached_property
     def content(self):
         return bytes(self._inner.get_content())
 
     @content.setter
     def content(self, value):
+        self.__class__.content.fget.cache_clear()
         self._inner.set_content(value)
 
     def delete(self):
@@ -369,7 +385,7 @@ class InvitationListResponse:
     def __init__(self, inner):
         self._inner = inner
 
-    @property
+    @cached_property
     def iterator(self):
         return self._inner.get_iterator()
 
@@ -377,7 +393,7 @@ class InvitationListResponse:
     def data(self):
         return map(lambda x: SignedInvitation(x), self._inner.get_data())
 
-    @property
+    @cached_property
     def done(self):
         return self._inner.is_done()
 
@@ -454,7 +470,7 @@ class MemberListResponse:
     def __init__(self, inner):
         self._inner = inner
 
-    @property
+    @cached_property
     def iterator(self):
         return self._inner.get_iterator()
 
@@ -462,7 +478,7 @@ class MemberListResponse:
     def data(self):
         return map(lambda x: SignedInvitation(x), self._inner.get_data())
 
-    @property
+    @cached_property
     def done(self):
         return self._inner.is_done()
 
