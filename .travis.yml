@@ -4,8 +4,6 @@ jobs:
   include:
     - name: "Unit tests & sdist"
       dist: bionic
-      before_install:
-        - sudo apt-get -y install python3-pip
       script: |
               python3 setup.py bdist_wheel
               python3 setup.py sdist
@@ -15,8 +13,6 @@ jobs:
       if: tag IS present
       services: docker
       dist: bionic
-      before_install:
-        - sudo apt-get -y install python3-pip
     - name: "macOS"
       if: tag IS present
       os: osx
@@ -37,6 +33,11 @@ env:
     - CIBW_BUILD_VERBOSITY="1"   # Make some more noise so that travis doesn't stall
     - CIBW_ENVIRONMENT='PATH="$PATH:$HOME/.cargo/bin"'
     - CIBW_SKIP="cp27-* cp34-* cp35-* pp* *-win32"
+before_install:
+    - |
+      if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+          sudo apt-get -y install python3-pip
+      fi
 install:
     - |
       pip3 install --upgrade pip wheel setuptools setuptools-rust
