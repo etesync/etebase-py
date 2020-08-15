@@ -17,10 +17,6 @@ jobs:
       if: tag IS present
       services: docker
       arch: arm64
-    - name: "Linux PPC64LE"
-      if: tag IS present
-      services: docker
-      arch: ppc64le
     - name: "Linux S390X"
       if: tag IS present
       services: docker
