@@ -10,9 +10,16 @@ jobs:
               python3 setup.py sdist
               pip install dist/*.whl
               # FIXME: also run unit tests once they are not network based
-    - name: "Linux"
+    - name: "Linux x86_64"
       if: tag IS present
       services: docker
+      env:
+        - CIBW_BUILD="*-manylinux_x86_64"
+    - name: "Linux i686"
+      if: tag IS present
+      services: docker
+      env:
+        - CIBW_BUILD="*-manylinux_i686"
     - name: "Linux ARMv8"
       if: tag IS present
       services: docker
