@@ -1,9 +1,10 @@
 language: rust
 cache: cargo
+os: linux
+dist: bionic
 jobs:
   include:
     - name: "Unit tests & sdist"
-      dist: bionic
       script: |
               python3 setup.py bdist_wheel
               python3 setup.py sdist
@@ -12,7 +13,18 @@ jobs:
     - name: "Linux"
       if: tag IS present
       services: docker
-      dist: bionic
+    - name: "Linux ARMv8"
+      if: tag IS present
+      services: docker
+      arch: arm64
+    - name: "Linux PPC64LE"
+      if: tag IS present
+      services: docker
+      arch: ppc64le
+    - name: "Linux S390X"
+      if: tag IS present
+      services: docker
+      arch: s390x
     - name: "macOS"
       if: tag IS present
       os: osx
