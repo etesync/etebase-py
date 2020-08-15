@@ -17,18 +17,10 @@ jobs:
       dist: bionic
       before_install:
         - sudo apt-get -y install python3-pip
-      env:
-        - CIBW_BEFORE_ALL_LINUX="curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y"
-        - CIBW_BEFORE_BUILD="pip install -U setuptools-rust"
-        - CIBW_BUILD_VERBOSITY="1"   # Make some more noise so that travis doesn't stall
-        - CIBW_ENVIRONMENT='PATH="$PATH:$HOME/.cargo/bin"'
-        - CIBW_SKIP="cp27-* cp34-* cp35-* pp*"
     - name: "macOS"
       if: tag IS present
       os: osx
       osx_image: xcode11
-      env:
-        - CIBW_SKIP="cp27-* cp34-* cp35-* pp*"
     - name: "Windows"
       if: tag IS present
       os: windows           # Windows 10.0.17134 N/A Build 17134
@@ -38,7 +30,13 @@ jobs:
         - python -m pip install --upgrade pip
       env:
         - PATH=/c/Python38:/c/Python38/Scripts:/c/Strawberry/perl/site/bin:/c/Strawberry/perl/bin:/c/Strawberry/c/bin:$PATH
-        - CIBW_SKIP="cp27-* cp34-* cp35-* pp* *-win32"
+env:
+  global:
+    - CIBW_BEFORE_ALL_LINUX="curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y"
+    - CIBW_BEFORE_BUILD="pip install -U setuptools-rust"
+    - CIBW_BUILD_VERBOSITY="1"   # Make some more noise so that travis doesn't stall
+    - CIBW_ENVIRONMENT='PATH="$PATH:$HOME/.cargo/bin"'
+    - CIBW_SKIP="cp27-* cp34-* cp35-* pp* *-win32"
 install:
     - |
       pip3 install --upgrade pip wheel setuptools setuptools-rust
