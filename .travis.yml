@@ -14,6 +14,7 @@ jobs:
       if: tag IS present
       script: |
               python3 setup.py sdist
+              twine upload dist/*
     - name: "Linux x86_64"
       if: tag IS present
       services: docker
@@ -69,6 +70,7 @@ script:
       else
           python3 -m cibuildwheel --output-dir wheelhouse
       fi
+      twine upload wheelhouse/*
 deploy:
   provider: releases
   api_key: $RELEASE_TOKEN
