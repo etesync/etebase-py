@@ -7,7 +7,6 @@ jobs:
     - name: "Unit tests"
       script: |
               python3 setup.py bdist_wheel
-              python3 setup.py sdist
               pip install dist/*.whl
               # FIXME: also run unit tests once they are not network based
     - name: "Sdist"
