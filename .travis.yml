@@ -4,12 +4,16 @@ os: linux
 dist: bionic
 jobs:
   include:
-    - name: "Unit tests & sdist"
+    - name: "Unit tests"
       script: |
               python3 setup.py bdist_wheel
               python3 setup.py sdist
               pip install dist/*.whl
               # FIXME: also run unit tests once they are not network based
+    - name: "Sdist"
+      if: tag IS present
+      script: |
+              python3 setup.py sdist
     - name: "Linux x86_64"
       if: tag IS present
       services: docker
