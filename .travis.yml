@@ -61,6 +61,7 @@ install:
     - |
       pip3 install --upgrade pip wheel setuptools setuptools-rust
       pip3 install --upgrade pip cibuildwheel
+      pip3 install --upgrade pip twine
 script:
     - |
       if [ "$TRAVIS_OS_NAME" = "windows" ]; then
