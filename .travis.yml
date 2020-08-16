@@ -52,6 +52,7 @@ env:
     - CIBW_BUILD_VERBOSITY="1"   # Make some more noise so that travis doesn't stall
     - CIBW_ENVIRONMENT='PATH="$PATH:$HOME/.cargo/bin" CARGO_TARGET_DIR="$TRAVIS_BUILD_DIR/target"'
     - CIBW_SKIP="cp27-* cp34-* cp35-* pp* *-win32"
+    - TWINE_USERNAME="__token__"
 before_install:
     - |
       if [ "$TRAVIS_OS_NAME" = "linux" ]; then
