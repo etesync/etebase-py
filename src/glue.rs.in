@@ -21,6 +21,7 @@ use etebase::{
     utils::{
         from_base64,
         to_base64,
+        randombytes,
     },
 
     error::Error,
@@ -36,9 +37,10 @@ use crate::fixes::{
     FetchOptions,
 };
 
-foreign_class!(class Base64Url {
+foreign_class!(class Utils {
     fn from_base64(string: &str) -> Result<Vec<u8>, Error>;
     fn to_base64(bytes: &[u8]) -> Result<String, Error>;
+    fn randombytes(size: usize) -> Vec<u8>;
 });
 
 fn get_api_url() -> String {

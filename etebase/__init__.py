@@ -25,14 +25,18 @@ def _inner(it):
 API_URL = etebase_python.Client.get_api_url()
 
 
+def random_bytes(size):
+    return bytes(etebase_python.Utils.randombytes(size))
+
+
 class Base64Url:
     @classmethod
     def from_base64(cls, value):
-        return bytes(etebase_python.Base64Url.from_base64(value))
+        return bytes(etebase_python.Utils.from_base64(value))
 
     @classmethod
     def to_base64(cls, value):
-        return etebase_python.Base64Url.to_base64(value)
+        return etebase_python.Utils.to_base64(value)
 
 
 class Client:
