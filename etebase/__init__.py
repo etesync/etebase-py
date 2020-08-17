@@ -195,7 +195,7 @@ class CollectionManager:
     def __init__(self, inner: str):
         self._inner = inner
 
-    def fetch(self, col_uid, fetch_options):
+    def fetch(self, col_uid, fetch_options=None):
         return Collection(self._inner.fetch(col_uid, _inner(fetch_options)))
 
     def create(self, meta, content):
@@ -208,13 +208,13 @@ class CollectionManager:
     def get_item_manager(self, col):
         return ItemManager(self._inner.get_item_manager(col._inner))
 
-    def list(self, fetch_options):
+    def list(self, fetch_options=None):
         return CollectionListResponse(self._inner.list(_inner(fetch_options)))
 
-    def upload(self, collection, fetch_options):
+    def upload(self, collection, fetch_options=None):
         self._inner.upload(collection._inner, _inner(fetch_options))
 
-    def transaction(self, collection, fetch_options):
+    def transaction(self, collection, fetch_options=None):
         self._inner.transaction(collection._inner, _inner(fetch_options))
 
     def cache_load(self, cached):
@@ -234,7 +234,7 @@ class ItemManager:
     def __init__(self, inner: str):
         self._inner = inner
 
-    def fetch(self, col_uid, fetch_options):
+    def fetch(self, col_uid, fetch_options=None):
         return Item(self._inner.fetch(col_uid, _inner(fetch_options)))
 
     def create(self, meta, content):
@@ -244,19 +244,19 @@ class ItemManager:
     def create_raw(self, meta, content):
         return Item(self._inner.create_raw(meta, content))
 
-    def list(self, fetch_options):
+    def list(self, fetch_options=None):
         return ItemListResponse(self._inner.list(_inner(fetch_options)))
 
-    def fetch_updates(self, items, fetch_options):
+    def fetch_updates(self, items, fetch_options=None):
         items = list(map(lambda x: x._inner, items))
         return ItemListResponse(self._inner.fetch_updates(items, _inner(fetch_options)))
 
-    def batch(self, items, deps, fetch_options):
+    def batch(self, items, deps=None, fetch_options=None):
         items = list(map(lambda x: x._inner, items))
         deps = list(map(lambda x: x._inner, deps)) if deps is not None else None
         self._inner.batch(items, deps, fetch_options)
 
-    def transaction(self, items, deps, fetch_options):
+    def transaction(self, items, deps=None, fetch_options=None):
         items = list(map(lambda x: x._inner, items))
         deps = list(map(lambda x: x._inner, deps)) if deps is not None else None
         self._inner.transaction(items, deps, fetch_options)
@@ -419,10 +419,10 @@ class CollectionInvitationManager:
     def __init__(self, inner):
         self._inner = inner
 
-    def list_incoming(self, fetch_options):
+    def list_incoming(self, fetch_options=None):
         return InvitationListResponse(self._inner.list_incoming(_inner(fetch_options)))
 
-    def list_outgoing(self, fetch_options):
+    def list_outgoing(self, fetch_options=None):
         return InvitationListResponse(self._inner.list_outgoing(_inner(fetch_options)))
 
     def accept(self, signed_invitation):
@@ -504,7 +504,7 @@ class CollectionMemberManager:
     def __init__(self, inner):
         self._inner = inner
 
-    def list(self, fetch_options):
+    def list(self, fetch_options=None):
         return MemberListResponse(self._inner.list(_inner(fetch_options)))
 
     def remove(self, username):
