@@ -2,7 +2,7 @@ import functools
 
 import msgpack
 
-from .etebase_python import Base64Url, PrefetchOption
+from .etebase_python import PrefetchOption
 from . import etebase_python
 
 
@@ -20,6 +20,16 @@ def msgpack_decode(content):
 
 def _inner(it):
     return getattr(it, "_inner", None)
+
+
+class Base64Url:
+    @classmethod
+    def from_base64(cls, value):
+        return bytes(etebase_python.Base64Url.from_base64(value))
+
+    @classmethod
+    def to_base64(cls, value):
+        return etebase_python.Base64Url.to_base64(value)
 
 
 class Client:
