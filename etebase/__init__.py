@@ -22,6 +22,9 @@ def _inner(it):
     return getattr(it, "_inner", None)
 
 
+API_URL = etebase_python.Client.get_api_url()
+
+
 class Base64Url:
     @classmethod
     def from_base64(cls, value):
@@ -33,7 +36,7 @@ class Base64Url:
 
 
 class Client:
-    def __init__(self, client_name, server_url):
+    def __init__(self, client_name, server_url=API_URL):
         self._inner = etebase_python.Client.new(client_name, server_url)
 
     @property

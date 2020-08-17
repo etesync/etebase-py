@@ -41,11 +41,16 @@ foreign_class!(class Base64Url {
     fn to_base64(bytes: &[u8]) -> Result<String, Error>;
 });
 
+fn get_api_url() -> String {
+    etebase::API_URL.to_owned()
+}
+
 foreign_class!(class Client {
     self_type Client;
     private constructor = empty;
     fn Client::new(client_name: &str, server_url: &str) -> Result<Client, Error>;
     fn Client::set_api_base(&mut self, server_url: &str) -> Result<(), Error>;
+    fn get_api_url() -> String;
 });
 
 mod User_ {
