@@ -82,5 +82,5 @@ deploy:
     - dist/*.tar.gz  # sdist
   draft: true
   on:
-      tag: true
+      tags: true
   name: $TRAVIS_TAG (DRAFT)
