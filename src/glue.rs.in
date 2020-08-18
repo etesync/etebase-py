@@ -186,6 +186,28 @@ foreign_class!(class ItemListResponse {
     fn ItemListResponse::done(&self) -> bool; alias is_done;
 });
 
+type ItemRevisionsListResponse = etebase::IteratorListResponse<etebase::Item>;
+
+mod ItemRevisionsListResponse_ {
+    use super::*;
+
+    pub fn iterator(this: &ItemRevisionsListResponse) -> Option<String> {
+        this.iterator().map(str::to_string)
+    }
+
+    pub fn data(this: &ItemRevisionsListResponse) -> Vec<Item> {
+        this.data().iter().map(|x| Item::new(x.clone())).collect()
+    }
+}
+
+foreign_class!(class ItemRevisionsListResponse {
+    self_type ItemRevisionsListResponse;
+    private constructor = empty;
+    fn ItemRevisionsListResponse_::iterator(&self) -> Option<String>; alias get_iterator;
+    fn ItemRevisionsListResponse_::data(&self) -> Vec<Item>; alias get_data;
+    fn ItemRevisionsListResponse::done(&self) -> bool; alias is_done;
+});
+
 foreign_enum!(enum PrefetchOption {
     Auto = PrefetchOption::Auto,
     Medium = PrefetchOption::Medium,
@@ -368,6 +390,12 @@ mod ItemManager_ {
         mgr.list(fetch_options.as_ref())
     }
 
+    pub fn item_revisions(mgr: &ItemManager, item: Item, fetch_options: Option<FetchOptions>) -> Result<ItemRevisionsListResponse, Error> {
+        let fetch_options = fetch_options.as_ref().map(|x| x.to_fetch_options());
+        let item = item.inner.lock().unwrap();
+        mgr.item_revisions(&item, fetch_options.as_ref())
+    }
+
     pub fn fetch_updates(mgr: &ItemManager, items: Vec<Item>, fetch_options: Option<FetchOptions>) -> Result<ItemListResponse, Error> {
         let fetch_options = fetch_options.as_ref().map(|x| x.to_fetch_options());
         let items_v: Vec<_> = items.iter().map(|x| x.inner.lock().unwrap()).collect();
@@ -423,6 +451,7 @@ foreign_class!(class ItemManager {
     fn ItemManager_::create(&self, meta: &ItemMetadata, content: &[u8]) -> Result<Item, Error>;
     fn ItemManager_::create_raw(&self, meta: &[u8], content: &[u8]) -> Result<Item, Error>;
     fn ItemManager_::list(&self, fetch_options: Option<FetchOptions>) -> Result<ItemListResponse, Error>;
+    fn ItemManager_::item_revisions(&self, item: Item, fetch_options: Option<FetchOptions>) -> Result<ItemRevisionsListResponse, Error>;
     fn ItemManager_::fetch_updates(&self, items: Vec<Item>, fetch_options: Option<FetchOptions>) -> Result<ItemListResponse, Error>;
     fn ItemManager_::batch(&self, items: Vec<Item>, deps: Option<Vec<Item>>, fetch_options: Option<FetchOptions>) -> Result<(), Error>;
     fn ItemManager_::transaction(&self, items: Vec<Item>, deps: Option<Vec<Item>>, fetch_options: Option<FetchOptions>) -> Result<(), Error>;

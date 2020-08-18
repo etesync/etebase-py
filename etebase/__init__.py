@@ -2,7 +2,7 @@ import functools
 
 import msgpack
 
-from .etebase_python import PrefetchOption
+from .etebase_python import PrefetchOption  # noqa
 from . import etebase_python
 
 
@@ -162,6 +162,23 @@ class ItemListResponse:
         return self._inner.is_done()
 
 
+class ItemRevisionsListResponse:
+    def __init__(self, inner):
+        self._inner = inner
+
+    @cached_property
+    def iterator(self):
+        return self._inner.get_iterator()
+
+    @property
+    def data(self):
+        return map(lambda x: Item(x), self._inner.get_data())
+
+    @cached_property
+    def done(self):
+        return self._inner.is_done()
+
+
 class FetchOptions:
     def __init__(self):
         self._inner = etebase_python.FetchOptions()
@@ -251,6 +268,9 @@ class ItemManager:
     def list(self, fetch_options=None):
         return ItemListResponse(self._inner.list(_inner(fetch_options)))
 
+    def item_revisions(self, item, fetch_options=None):
+        return ItemRevisionsListResponse(self._inner.item_revisions(item._inner, _inner(fetch_options)))
+
     def fetch_updates(self, items, fetch_options=None):
         items = list(map(lambda x: x._inner, items))
         return ItemListResponse(self._inner.fetch_updates(items, _inner(fetch_options)))
@@ -337,7 +357,7 @@ class Collection:
 
     @property
     def item(self):
-        return Item(self._inner.item())
+        return Item(self._inner.get_item())
 
 
 class Item:
