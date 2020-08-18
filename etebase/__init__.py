@@ -230,8 +230,8 @@ class CollectionManager:
         else:
             return bytes(self._inner.cache_save(collection._inner))
 
-    def get_member_manager(self):
-        return CollectionMemberManager(self._inner.get_member_manager())
+    def get_member_manager(self, collection):
+        return CollectionMemberManager(self._inner.get_member_manager(collection._inner))
 
 
 class ItemManager:
@@ -394,7 +394,7 @@ class Item:
 
 
 class UserProfile:
-    def __init__(self, inerr):
+    def __init__(self, inner):
         self._inner = inner
 
     @property
@@ -436,10 +436,10 @@ class CollectionInvitationManager:
         self._inner.reject(signed_invitation._inner)
 
     def fetch_user_profile(self, username):
-        return self._inner.fetch_user_profile(username)
+        return UserProfile(self._inner.fetch_user_profile(username))
 
     def invite(self, collection, username, pubkey, access_level):
-        self._inner.invite(collection, username, pubkey, access_level)
+        self._inner.invite(collection._inner, username, pubkey, access_level)
 
     def disinvite(self, signed_invitation):
         self._inner.disinvite(signed_invitation._inner)

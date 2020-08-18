@@ -663,7 +663,7 @@ foreign_class!(class CollectionMember {
     self_type CollectionMember;
     private constructor = empty;
 
-    fn CollectionMember_::username(&self) -> String;
+    fn CollectionMember_::username(&self) -> String; alias get_username;
     fn CollectionMember_::get_access_level(&self) -> String;
 });
 
