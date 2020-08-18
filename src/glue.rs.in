@@ -18,6 +18,8 @@ use etebase::{
 
     UserProfile,
 
+    pretty_fingerprint,
+
     utils::{
         from_base64,
         to_base64,
@@ -41,6 +43,7 @@ foreign_class!(class Utils {
     fn from_base64(string: &str) -> Result<Vec<u8>, Error>;
     fn to_base64(bytes: &[u8]) -> Result<String, Error>;
     fn randombytes(size: usize) -> Vec<u8>;
+    fn pretty_fingerprint(content: &[u8]) -> String;
 });
 
 fn get_api_url() -> String {

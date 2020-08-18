@@ -29,6 +29,10 @@ def random_bytes(size):
     return bytes(etebase_python.Utils.randombytes(size))
 
 
+def pretty_fingerprint(content):
+    return etebase_python.Utils.pretty_fingerprint(content)
+
+
 class Base64Url:
     @classmethod
     def from_base64(cls, value):
