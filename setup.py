@@ -8,7 +8,7 @@ setup(
     packages=["etebase"],
     author='Tom Hacohen',
     author_email='tom@stosb.com',
-    url='https://github.com/etesync/etesync-rs/tree/etebase/python',
+    url='https://github.com/etesync/etebase-py',
     description='Python client library for Etebase',
     keywords=['etebase', 'encryption', 'sync', 'end-to-end encryption'],
     license='LGPL-3.0-only',
