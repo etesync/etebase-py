@@ -35,9 +35,7 @@ use etebase::{
     },
 };
 
-use crate::fixes::{
-    FetchOptions,
-};
+use crate::fixes::FetchOptions;
 
 foreign_class!(class Utils {
     fn from_base64(string: &str) -> Result<Vec<u8>, Error>;
