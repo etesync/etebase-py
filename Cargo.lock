@@ -132,7 +132,7 @@ dependencies = [
 [[package]]
 name = "etebase"
 version = "0.1.0"
-source = "git+https://github.com/etesync/etesync-rs?branch=etebase#112724ca38c827d78849aa860016c0338e55aa2a"
+source = "git+https://github.com/etesync/etesync-rs?branch=etebase#57be31515fea66e4dce2476cf092e256ce6387cd"
 dependencies = [
  "block-padding",
  "reqwest",
