@@ -1,6 +1,6 @@
 <p align="center">
   <img width="120" src="https://github.com/etesync/etesync-web/blob/master/src/images/logo.svg" />
-  <h1 align="center">EteSync - Secure Data Sync</h1>
+  <h1 align="center">Etebase - Encrypt Everything</h1>
 </p>
 
 A Python library for Etebase
