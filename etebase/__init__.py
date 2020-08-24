@@ -48,12 +48,12 @@ class Client:
         self._inner = etebase_python.Client.new(client_name, server_url)
 
     @property
-    def set_api_base(self):
+    def set_server_url(self):
         raise RuntimeError("This property has no getter!")
 
-    @set_api_base.setter
-    def set_api_base(self, value):
-        self._inner.set_api_base(value)
+    @set_server_url.setter
+    def set_server_url(self, value):
+        self._inner.set_server_url(value)
 
 
 class User:
@@ -92,8 +92,8 @@ class Account:
     def fetch_token(self):
         self._inner.fetch_token()
 
-    def force_api_base(self, api_base):
-        self._inner.force_api_base(api_base)
+    def force_server_url(self, api_base):
+        self._inner.force_server_url(api_base)
 
     def change_password(self, password):
         self._inner.change_password(password)

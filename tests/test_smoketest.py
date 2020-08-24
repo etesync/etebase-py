@@ -10,7 +10,7 @@ class TestStringMethods(unittest.TestCase):
     def test_main(self):
         client = Client("python_test", SERVER_URL)
         etebase = Account.restore(client, STORED_SESSION, None)
-        etebase.force_api_base(SERVER_URL)
+        etebase.force_server_url(SERVER_URL)
         etebase.fetch_token()
 
         col_mgr = etebase.get_collection_manager()

@@ -52,7 +52,7 @@ foreign_class!(class Client {
     self_type Client;
     private constructor = empty;
     fn Client::new(client_name: &str, server_url: &str) -> Result<Client, Error>;
-    fn Client::set_api_base(&mut self, server_url: &str) -> Result<(), Error>;
+    fn Client::set_server_url(&mut self, server_url: &str) -> Result<(), Error>;
     fn get_api_url() -> String;
 });
 
@@ -111,7 +111,7 @@ foreign_class!(class Account {
     fn Account_::login(client: &Client, username: &str, password: &str) -> Result<Account, Error>;
     fn Account_::signup(client: &Client, user: &User, password: &str) -> Result<Account, Error>;
     fn Account::fetch_token(&mut self) -> Result<(), Error>;
-    fn Account::force_api_base(&mut self, api_base: &str) -> Result<(), Error>;
+    fn Account::force_server_url(&mut self, api_base: &str) -> Result<(), Error>;
     fn Account::change_password(&mut self, password: &str) -> Result<(), Error>;
     fn Account::logout(&mut self) -> Result<(), Error>;
     fn Account::collection_manager(&self) -> Result<CollectionManager, Error>; alias get_collection_manager;
