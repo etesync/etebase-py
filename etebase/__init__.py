@@ -44,7 +44,7 @@ class Base64Url:
 
 
 class Client:
-    def __init__(self, client_name, server_url=API_URL):
+    def __init__(self, client_name, server_url=DEFAULT_SERVER_URL):
         self._inner = etebase_python.Client.new(client_name, server_url)
 
     @property
