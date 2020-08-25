@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.2.1
+* Update etebase dep
+
 ## Version 0.2.0
 * ItemManager: implement item revisions fetching.
 * Fix `UserProfile` member manager and invitation manager.
