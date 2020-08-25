@@ -22,7 +22,7 @@ def _inner(it):
     return getattr(it, "_inner", None)
 
 
-API_URL = etebase_python.Client.get_api_url()
+DEFAULT_SERVER_URL = etebase_python.Client.get_default_server_url()
 
 
 def random_bytes(size):

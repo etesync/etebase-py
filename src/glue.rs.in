@@ -44,8 +44,8 @@ foreign_class!(class Utils {
     fn pretty_fingerprint(content: &[u8]) -> String;
 });
 
-fn get_api_url() -> String {
-    etebase::API_URL.to_owned()
+fn get_default_server_url() -> String {
+    etebase::DEFAULT_SERVER_URL.to_owned()
 }
 
 foreign_class!(class Client {
@@ -53,7 +53,7 @@ foreign_class!(class Client {
     private constructor = empty;
     fn Client::new(client_name: &str, server_url: &str) -> Result<Client, Error>;
     fn Client::set_server_url(&mut self, server_url: &str) -> Result<(), Error>;
-    fn get_api_url() -> String;
+    fn get_default_server_url() -> String;
 });
 
 mod User_ {
