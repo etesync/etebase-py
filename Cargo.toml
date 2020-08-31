@@ -1,0 +1,23 @@
+[package]
+name = "etebase-python"
+description = "Python bindings to etebase-rs"
+homepage = "https://www.etebase.com"
+repository = "https://github.com/etesync/etesync-rs/tree/etebase/python/"
+version = "0.2.1"
+authors = ["Tom Hacohen <tom@stosb.com>"]
+edition = "2018"
+license = "LGPL-2.1-only"
+readme = "README.md"
+
+[lib]
+crate-type = ["cdylib"]
+
+[build-dependencies]
+flapigen = { git = "https://github.com/Dushistov/flapigen-rs" }
+env_logger = "^0.7"
+log = "^0.4.6"
+
+[dependencies]
+cpython = { version = "0.3", features = ["extension-module"] }
+openssl = { version = "0.10.30", features = ["vendored"] }
+etebase = { git = "https://github.com/etesync/etesync-rs", rev = "5cace92804a984301a2ff6657eb409fccffc72f5" }
