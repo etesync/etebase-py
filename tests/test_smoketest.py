@@ -9,6 +9,9 @@ SERVER_URL = "http://localhost:8033"
 class TestStringMethods(unittest.TestCase):
     def test_main(self):
         client = Client("python_test", SERVER_URL)
+
+        self.assertTrue(Account.is_etebase_server(client))
+
         etebase = Account.restore(client, STORED_SESSION, None)
         etebase.force_server_url(SERVER_URL)
         etebase.fetch_token()

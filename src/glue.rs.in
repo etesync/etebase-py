@@ -108,6 +108,7 @@ mod Account_ {
 foreign_class!(class Account {
     self_type Account;
     private constructor = empty;
+    fn Account::is_etebase_server(client: &Client) -> Result<bool, Error>;
     fn Account_::login(client: &Client, username: &str, password: &str) -> Result<Account, Error>;
     fn Account_::signup(client: &Client, user: &User, password: &str) -> Result<Account, Error>;
     fn Account::fetch_token(&mut self) -> Result<(), Error>;

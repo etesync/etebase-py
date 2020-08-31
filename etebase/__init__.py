@@ -82,6 +82,10 @@ class Account:
         self._inner = inner
 
     @classmethod
+    def is_etebase_server(cls, client):
+        return etebase_python.Account.is_etebase_server(client._inner)
+
+    @classmethod
     def login(cls, client, username, password):
         return cls(etebase_python.Account.login(client._inner, username, password))
 
