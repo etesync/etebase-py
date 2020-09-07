@@ -132,13 +132,14 @@ dependencies = [
 [[package]]
 name = "etebase"
 version = "0.1.0"
-source = "git+https://github.com/etesync/etesync-rs?rev=5cace92804a984301a2ff6657eb409fccffc72f5#5cace92804a984301a2ff6657eb409fccffc72f5"
+source = "git+https://github.com/etesync/etesync-rs?rev=6b6e5179602d49d0e601d196686731ef4674e126#6b6e5179602d49d0e601d196686731ef4674e126"
 dependencies = [
  "block-padding",
  "reqwest",
  "rmp-serde",
  "serde",
  "serde_bytes",
+ "serde_repr",
  "sodiumoxide",
  "url",
 ]
@@ -955,6 +956,17 @@ dependencies = [
  "itoa",
  "ryu",
  "serde",
+]
+
+[[package]]
+name = "serde_repr"
+version = "0.1.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2dc6b7951b17b051f3210b063f12cc17320e2fe30ae05b0fe2a3abb068551c76"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]

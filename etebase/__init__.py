@@ -2,7 +2,7 @@ import functools
 
 import msgpack
 
-from .etebase_python import PrefetchOption  # noqa
+from .etebase_python import CollectionAccessLevel, PrefetchOption  # noqa
 from . import etebase_python
 
 
