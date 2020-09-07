@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 0.2.2
+## Version 0.20.0
 * Expose access level values
 * Rename API_URL to DEFAULT_SERVER_URL and update etebase dep.
 * Add an API function to check if it's an etebase server.
