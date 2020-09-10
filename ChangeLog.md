@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.20.1
+* Fix errors when setting item and collection metadata
+
 ## Version 0.20.0
 * Expose access level values
 * Rename API_URL to DEFAULT_SERVER_URL and update etebase dep.
