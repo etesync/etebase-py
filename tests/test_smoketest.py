@@ -19,6 +19,8 @@ class TestStringMethods(unittest.TestCase):
         col_mgr = etebase.get_collection_manager()
         col_meta = {"type": "Type", "name": "Name"}
         col = col_mgr.create(col_meta, b"Something")
+        col_meta["bloop"] = "blap"
+        col.meta = col_meta
         self.assertEqual(b"Something", bytes(col.content))
 
         fetch_options = FetchOptions().prefetch(True)
@@ -38,6 +40,8 @@ class TestStringMethods(unittest.TestCase):
         it_mgr = col_mgr.get_item_manager(col)
         item_meta = {"type": "Bla"}
         item = it_mgr.create(item_meta, b"Something item")
+        item_meta = {"type": "Bla", "bloop": "blap"}
+        item.meta = item_meta
         self.assertNotEqual("", item.uid)
         self.assertIsNotNone(item.etag)
         self.assertEqual(b"Something item", bytes(item.content))

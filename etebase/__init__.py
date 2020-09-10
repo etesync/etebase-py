@@ -306,7 +306,7 @@ class Collection:
     def verify(self):
         return self._inner.verify()
 
-    @property
+    @cached_property
     def meta(self):
         return msgpack_decode(bytes(self._inner.get_meta_raw()))
 
@@ -317,7 +317,7 @@ class Collection:
         value = msgpack_encode(_verify_col_meta(value))
         self._inner.set_meta_raw(value)
 
-    @property
+    @cached_property
     def meta_raw(self):
         return self._inner.get_meta_raw()
 
@@ -371,7 +371,7 @@ class Item:
     def verify(self):
         return self._inner.verify()
 
-    @property
+    @cached_property
     def meta(self):
         return msgpack_decode(bytes(self._inner.get_meta_raw()))
 
@@ -382,7 +382,7 @@ class Item:
         value = msgpack_encode(value)
         self._inner.set_meta_raw(value)
 
-    @property
+    @cached_property
     def meta_raw(self):
         return self._inner.get_meta_raw()
 
