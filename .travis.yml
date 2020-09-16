@@ -28,10 +28,6 @@ jobs:
       if: tag IS present
       services: docker
       arch: arm64
-    - name: "Linux S390X"
-      if: tag IS present
-      services: docker
-      arch: s390x
     - name: "macOS"
       if: tag IS present
       os: osx
