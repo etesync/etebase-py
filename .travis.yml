@@ -42,11 +42,11 @@ jobs:
       before_install:
         - choco install python --version 3.8.0
         - choco install strawberryperl
-        - python -m pip install --upgrade pip
         - cargo install sccache --version $SCCACHE_VERSION
       env:
         - PATH=/c/Python38:/c/Python38/Scripts:/c/Strawberry/perl/site/bin:/c/Strawberry/perl/bin:/c/Strawberry/c/bin:$PATH
         - RUSTFLAGS="-Ctarget-feature=+crt-static"
+        - CIBW_BEFORE_BUILD="python -m pip install --upgrade pip"  # Upgrade pip to a fixed version
         - CIBW_SKIP="$CIBW_SKIP cp36-*"  # Also skip Python 3.6 as build is too slow
 env:
   global:
