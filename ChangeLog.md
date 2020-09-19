@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.21.0
+* Use new and shorter fingerprint pretty format
+* Update etebase dep
+
 ## Version 0.20.2
 * CI: statically link Windows C runtime on Windows
 * CI: change how we build the wheels to fix Windows link issue
