@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.21.1
+* Invitations: expose from_username
+* Update etebase dep
+
 ## Version 0.21.0
 * Use new and shorter fingerprint pretty format
 * Update etebase dep
