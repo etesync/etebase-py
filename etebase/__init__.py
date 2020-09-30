@@ -494,6 +494,10 @@ class SignedInvitation:
         return self._inner.get_access_level()
 
     @property
+    def from_username(self):
+        return bytes(self._inner.get_from_username())
+
+    @property
     def from_pubkey(self):
         return bytes(self._inner.get_from_pubkey())
 
