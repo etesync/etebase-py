@@ -39,12 +39,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cf1de2fe8c75bc145a2f577add951f8134889b4795d47466a54a5c846d691693"
 
 [[package]]
-name = "block-padding"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c98bfd7c112b6399fef97cc0614af1cd375b27a112e552ce60f94c1b5f13cb74"
-
-[[package]]
 name = "bumpalo"
 version = "3.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -185,9 +179,9 @@ dependencies = [
 [[package]]
 name = "etebase"
 version = "0.1.0"
-source = "git+https://github.com/etesync/etesync-rs?rev=46822594a506183a5aaaad772fa5c05827f40cff#46822594a506183a5aaaad772fa5c05827f40cff"
+source = "git+https://github.com/etesync/etesync-rs?rev=643121b0e5d49d788e86a795ae5bbc1f6359ea9d#643121b0e5d49d788e86a795ae5bbc1f6359ea9d"
 dependencies = [
- "block-padding",
+ "libsodium-sys",
  "remove_dir_all 0.6.0",
  "reqwest",
  "rmp-serde",

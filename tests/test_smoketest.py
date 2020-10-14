@@ -4,7 +4,7 @@ from etebase import Client, Account, FetchOptions
 
 STORED_SESSION = "gqd2ZXJzaW9uAa1lbmNyeXB0ZWREYXRhxQGr_KWyDChQ6tXOJwJKf0Kw3QyR99itPIF3vZ5w6pVXSIq7AWul3fIXjIZOsBEwTVRumw7e9Af38D5oIL2VLNPLlmTOMjzIvuB00z3zDMFbH8pwrg2p_FvAhLHGjUGoXzU2XIxS4If7rQUfEz1zWkHPqWMrj4hACML5fks302dOUw7OsSMekcQaaVqMyj82MY3lG2qj8CL6ykSED7nW6OYWwMBJ1rSDGXhQRd5JuCGl6kgAHxKS6gkkIAWeUKjC6-Th2etk1XPKDiks0SZrQpmuXG8h_TBdd4igjRUqnIk09z5wvJFViXIU4M3pQomyFPk3Slh7KHvWhzxG0zbC2kUngQZ5h-LbVTLuT_TQWjYmHiOIihenrzl7z9MLebUq6vuwusZMRJ1Atau0Y2HcOzulYt4tLRP49d56qFEId3R4xomZ666hy-EFodsbzpxEKHeBUro3_gifOOKR8zkyLKTRz1UipZfKvnWk_RHFgZlSClRsXyaP34wstUavSiz-HNmTEmflNQKM7Awfel108FcSbW9NQAogW2Y2copP-P-R-DiHThrXmgDsWkTQFA"
 SERVER_URL = "http://localhost:8033"
-
+COL_TYPE = "some.coltype"
 
 class TestStringMethods(unittest.TestCase):
     def test_main(self):
@@ -17,19 +17,20 @@ class TestStringMethods(unittest.TestCase):
         etebase.fetch_token()
 
         col_mgr = etebase.get_collection_manager()
-        col_meta = {"type": "Type", "name": "Name"}
-        col = col_mgr.create(col_meta, b"Something")
+        col_meta = {"name": "Name"}
+        col = col_mgr.create(COL_TYPE, col_meta, b"Something")
         col_meta["bloop"] = "blap"
         col.meta = col_meta
         self.assertEqual(b"Something", bytes(col.content))
+        self.assertEqual(COL_TYPE, col.collection_type)
 
         fetch_options = FetchOptions().prefetch(True)
         col_mgr.upload(col, fetch_options)
 
-        col_list = col_mgr.list(None)
+        col_list = col_mgr.list(COL_TYPE, None)
         self.assertNotEqual(0, len(list(col_list.data)))
         fetch_options = FetchOptions().stoken(col_list.stoken)
-        col_list = col_mgr.list(fetch_options)
+        col_list = col_mgr.list(COL_TYPE, fetch_options)
         self.assertEqual(0, len(list(col_list.data)))
 
         col2 = col_mgr.fetch(col.uid, None)

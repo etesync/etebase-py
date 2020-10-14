@@ -209,8 +209,6 @@ class FetchOptions:
 
 
 def _verify_col_meta(meta):
-    if "type" not in meta:
-        raise RuntimeError("Collection meta must have a type field")
     if "name" not in meta:
         raise RuntimeError("Collection meta must have a name field")
     return meta
@@ -223,18 +221,21 @@ class CollectionManager:
     def fetch(self, col_uid, fetch_options=None):
         return Collection(self._inner.fetch(col_uid, _inner(fetch_options)))
 
-    def create(self, meta, content):
+    def create(self, col_type, meta, content):
         meta = msgpack_encode(_verify_col_meta(meta))
-        return self.create_raw(meta, content)
+        return self.create_raw(col_type, meta, content)
 
-    def create_raw(self, meta, content):
-        return Collection(self._inner.create_raw(meta, content))
+    def create_raw(self, col_type, meta, content):
+        return Collection(self._inner.create_raw(col_type, meta, content))
 
     def get_item_manager(self, col):
         return ItemManager(self._inner.get_item_manager(col._inner))
 
-    def list(self, fetch_options=None):
-        return CollectionListResponse(self._inner.list(_inner(fetch_options)))
+    def list(self, col_type, fetch_options=None):
+        if isinstance(col_type, str):
+            return CollectionListResponse(self._inner.list(col_type, _inner(fetch_options)))
+        else:
+            return CollectionListResponse(self._inner.list_multi(list(col_type), _inner(fetch_options)))
 
     def upload(self, collection, fetch_options=None):
         self._inner.upload(collection._inner, _inner(fetch_options))
@@ -362,6 +363,10 @@ class Collection:
     @property
     def item(self):
         return Item(self._inner.get_item())
+
+    @cached_property
+    def collection_type(self):
+        return self._inner.get_collection_type()
 
 
 class Item:

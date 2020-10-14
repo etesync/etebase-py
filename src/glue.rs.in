@@ -6,7 +6,6 @@ use etebase::{
     Account,
 
     Collection,
-    CollectionMetadata,
     ItemMetadata,
 
     PrefetchOption,
@@ -237,61 +236,6 @@ foreign_class!(
     }
 );
 
-mod CollectionMetadata_ {
-    use super::*;
-
-    pub fn set_collection_type(this: &mut CollectionMetadata, type_: &str) {
-        this.set_collection_type(type_);
-    }
-
-    pub fn set_name(this: &mut CollectionMetadata, name: &str) {
-        this.set_name(name);
-    }
-
-    pub fn set_description(this: &mut CollectionMetadata, description: Option<String>) {
-        this.set_description(description.as_deref());
-    }
-
-    pub fn set_color(this: &mut CollectionMetadata, color: Option<String>) {
-        this.set_color(color.as_deref());
-    }
-
-    pub fn set_mtime(this: &mut CollectionMetadata, mtime: Option<i64>) {
-        this.set_mtime(mtime);
-    }
-
-    pub fn get_collection_type(this: &CollectionMetadata) -> String {
-        this.collection_type().to_owned()
-    }
-
-    pub fn get_name(this: &CollectionMetadata) -> String {
-        this.collection_type().to_owned()
-    }
-
-    pub fn get_description(this: &CollectionMetadata) -> Option<String> {
-        this.description().map(str::to_string)
-    }
-
-    pub fn get_color(this: &CollectionMetadata) -> Option<String> {
-        this.color().map(str::to_string)
-    }
-}
-
-foreign_class!(class CollectionMetadata {
-    self_type CollectionMetadata;
-    constructor CollectionMetadata::new(type_: &str, name: &str) -> CollectionMetadata;
-    fn CollectionMetadata_::set_collection_type(&mut self, type_: &str);
-    fn CollectionMetadata_::set_name(&mut self, name: &str);
-    fn CollectionMetadata_::set_description(&mut self, description: Option<String>);
-    fn CollectionMetadata_::set_color(&mut self, color: Option<String>);
-    fn CollectionMetadata_::set_mtime(&mut self, mtime: Option<i64>);
-    fn CollectionMetadata_::get_collection_type(&self) -> String;
-    fn CollectionMetadata_::get_name(&self) -> String;
-    fn CollectionMetadata_::get_description(&self) -> Option<String>;
-    fn CollectionMetadata_::get_color(&self) -> Option<String>; alias get_color;
-    fn CollectionMetadata::mtime(&self) -> Option<i64>; alias get_mtime;
-});
-
 mod ItemMetadata_ {
     use super::*;
 
@@ -314,6 +258,22 @@ mod ItemMetadata_ {
     pub fn get_name(this: &ItemMetadata) -> Option<String> {
         this.name().map(str::to_string)
     }
+
+    pub fn set_description(this: &mut ItemMetadata, description: Option<String>) {
+        this.set_description(description.as_deref());
+    }
+
+    pub fn set_color(this: &mut ItemMetadata, color: Option<String>) {
+        this.set_color(color.as_deref());
+    }
+
+    pub fn get_description(this: &ItemMetadata) -> Option<String> {
+        this.description().map(str::to_string)
+    }
+
+    pub fn get_color(this: &ItemMetadata) -> Option<String> {
+        this.color().map(str::to_string)
+    }
 }
 
 foreign_class!(class ItemMetadata {
@@ -325,6 +285,10 @@ foreign_class!(class ItemMetadata {
     fn ItemMetadata_::get_item_type(&self) -> Option<String>;
     fn ItemMetadata_::get_name(&self) -> Option<String>;
     fn ItemMetadata::mtime(&self) -> Option<i64>; alias get_mtime;
+    fn ItemMetadata_::set_description(&mut self, description: Option<String>);
+    fn ItemMetadata_::set_color(&mut self, color: Option<String>);
+    fn ItemMetadata_::get_description(&self) -> Option<String>;
+    fn ItemMetadata_::get_color(&self) -> Option<String>; alias get_color;
 });
 
 mod CollectionManager_ {
@@ -335,9 +299,14 @@ mod CollectionManager_ {
         this.fetch(col_uid, fetch_options.as_ref())
     }
 
-    pub fn list(this: &CollectionManager, fetch_options: Option<FetchOptions>) -> Result<CollectionListResponse, Error> {
+    pub fn list(this: &CollectionManager, collection_type: &str, fetch_options: Option<FetchOptions>) -> Result<CollectionListResponse, Error> {
         let fetch_options = fetch_options.as_ref().map(|x| x.to_fetch_options());
-        this.list(fetch_options.as_ref())
+        this.list(collection_type, fetch_options.as_ref())
+    }
+
+    pub fn list_multi(this: &CollectionManager, collection_types: Vec<String>, fetch_options: Option<FetchOptions>) -> Result<CollectionListResponse, Error> {
+        let fetch_options = fetch_options.as_ref().map(|x| x.to_fetch_options());
+        this.list_multi(collection_types.iter().map(|x| &x[..]), fetch_options.as_ref())
     }
 
     pub fn upload(this: &CollectionManager, collection: &Collection, fetch_options: Option<FetchOptions>) -> Result<(), Error> {
@@ -355,10 +324,11 @@ foreign_class!(class CollectionManager {
     self_type CollectionManager;
     private constructor = empty;
     fn CollectionManager_::fetch(&self, col_uid: &str, fetch_options: Option<FetchOptions>) -> Result<Collection, Error>;
-    fn CollectionManager::create(&self, meta: &CollectionMetadata, content: &[u8]) -> Result<Collection, Error>;
-    fn CollectionManager::create_raw(&self, meta: &[u8], content: &[u8]) -> Result<Collection, Error>;
+    fn CollectionManager::create(&self, collection_type: &str, meta: &ItemMetadata, content: &[u8]) -> Result<Collection, Error>;
+    fn CollectionManager::create_raw(&self, collection_type: &str, meta: &[u8], content: &[u8]) -> Result<Collection, Error>;
     fn CollectionManager::item_manager(&self, col: &Collection) -> Result<ItemManager, Error>; alias get_item_manager;
-    fn CollectionManager_::list(&self, fetch_options: Option<FetchOptions>) -> Result<CollectionListResponse, Error>;
+    fn CollectionManager_::list(&self, collection_type: &str, fetch_options: Option<FetchOptions>) -> Result<CollectionListResponse, Error>;
+    fn CollectionManager_::list_multi(&self, collection_types: Vec<String>, fetch_options: Option<FetchOptions>) -> Result<CollectionListResponse, Error>;
     fn CollectionManager_::upload(&self, collection: &Collection, fetch_options: Option<FetchOptions>) -> Result<(), Error>;
     fn CollectionManager_::transaction(&self, collection: &Collection, fetch_options: Option<FetchOptions>) -> Result<(), Error>;
     fn CollectionManager::cache_load(&self, cached: &[u8]) -> Result<Collection, Error>;
@@ -494,8 +464,8 @@ foreign_class!(class Collection {
     private constructor = empty;
     fn Collection_::verify(&self) -> bool;
 
-    fn Collection::set_meta(&mut self, meta: &CollectionMetadata) -> Result<(), Error>;
-    fn Collection::meta(&self) -> Result<CollectionMetadata, Error>; alias get_meta;
+    fn Collection::set_meta(&mut self, meta: &ItemMetadata) -> Result<(), Error>;
+    fn Collection::meta(&self) -> Result<ItemMetadata, Error>; alias get_meta;
     fn Collection::set_meta_raw(&mut self, meta: &[u8]) -> Result<(), Error>;
     fn Collection::meta_raw(&self) -> Result<Vec<u8>, Error>; alias get_meta_raw;
     fn Collection::set_content(&mut self, content: &[u8]) -> Result<(), Error>; alias set_content;
@@ -507,6 +477,7 @@ foreign_class!(class Collection {
     fn Collection_::stoken(&self) -> Option<String>; alias get_stoken;
     fn Collection::access_level(&self) -> CollectionAccessLevel; alias get_access_level;
     fn Collection_::item(&self) -> Result<Item, Error>; alias get_item;
+    fn Collection::collection_type(&self) -> Result<String, Error>; alias get_collection_type;
 });
 
 #[derive(Clone)]
