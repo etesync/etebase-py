@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.30.0
+* Login: automatically init the account if not init
+* Have global and immutable collection types (changes the create and list APIs)
+* Update etebase dependency
+
 ## Version 0.21.1
 * Invitations: expose from_username
 * Update etebase dep
