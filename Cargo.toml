@@ -20,4 +20,4 @@ log = "^0.4.6"
 [dependencies]
 cpython = { version = "0.3", features = ["extension-module"] }
 openssl = { version = "0.10.30", features = ["vendored"] }
-etebase = { git = "https://github.com/etesync/etesync-rs", rev = "643121b0e5d49d788e86a795ae5bbc1f6359ea9d" }
+etebase = { git = "https://github.com/etesync/etebase-rs", rev = "822dcd941b12a68d327d35f0ebc07bf3f0327433" }
