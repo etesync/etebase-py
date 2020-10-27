@@ -90,8 +90,16 @@ class Account:
         return cls(etebase_python.Account.login(client._inner, username, password))
 
     @classmethod
+    def login_key(cls, client, username, key):
+        return cls(etebase_python.Account.login_key(client._inner, username, key))
+
+    @classmethod
     def signup(cls, client, user, password):
         return cls(etebase_python.Account.signup(client._inner, user._inner, password))
+
+    @classmethod
+    def signup_key(cls, client, user, key):
+        return cls(etebase_python.Account.signup_key(client._inner, user._inner, key))
 
     def fetch_token(self):
         self._inner.fetch_token()

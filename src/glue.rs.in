@@ -91,8 +91,16 @@ mod Account_ {
         Account::login(client.clone(), username, password)
     }
 
+    pub fn login_key(client: &Client, username: &str, main_key: Vec<u8>) -> Result<Account, Error> {
+        Account::login_key(client.clone(), username, &main_key)
+    }
+
     pub fn signup(client: &Client, user: &User, password: &str) -> Result<Account, Error> {
         Account::signup(client.clone(), user, password)
+    }
+
+    pub fn signup_key(client: &Client, user: &User, main_key: Vec<u8>) -> Result<Account, Error> {
+        Account::signup_key(client.clone(), user, &main_key)
     }
 
     pub fn restore(client: &Client, account_data_stored: &str, encryption_key: Option<Vec<u8>>) -> Result<Account, Error> {
@@ -109,7 +117,9 @@ foreign_class!(class Account {
     private constructor = empty;
     fn Account::is_etebase_server(client: &Client) -> Result<bool, Error>;
     fn Account_::login(client: &Client, username: &str, password: &str) -> Result<Account, Error>;
+    fn Account_::login_key(client: &Client, username: &str, main_key: Vec<u8>) -> Result<Account, Error>;
     fn Account_::signup(client: &Client, user: &User, password: &str) -> Result<Account, Error>;
+    fn Account_::signup_key(client: &Client, user: &User, main_Key: Vec<u8>) -> Result<Account, Error>;
     fn Account::fetch_token(&mut self) -> Result<(), Error>;
     fn Account::force_server_url(&mut self, api_base: &str) -> Result<(), Error>;
     fn Account::change_password(&mut self, password: &str) -> Result<(), Error>;
