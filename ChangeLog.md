@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.31.1
+* Fix exposing the Utils class
+
 ## Version 0.31.0
 * Fix issue with custom urls lacking a trailing slash
 * Account: expose the login_key and signup_key variants.
