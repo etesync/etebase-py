@@ -11,7 +11,7 @@ setup(
     url='https://github.com/etesync/etebase-py',
     description='Python client library for Etebase',
     keywords=['etebase', 'encryption', 'sync', 'end-to-end encryption'],
-    license='LGPL-3.0-only',
+    license='BSD-3-Clause',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     python_requires='>=3',
