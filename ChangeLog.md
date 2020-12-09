@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.31.2
+* Fix crashes with Python 3.9
+
 ## Version 0.31.1
 * Fix exposing the Utils class
 
