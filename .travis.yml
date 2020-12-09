@@ -1,5 +1,12 @@
 language: rust
 cache: cargo
+# Cache cargo dir
+cache:
+  directories:
+    - $HOME/.cargo
+# But don't cache the cargo registry
+before_cache:
+  - rm -rf $HOME/.cargo/registry
 os: linux
 dist: bionic
 jobs:
