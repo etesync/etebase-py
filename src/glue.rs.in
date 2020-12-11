@@ -142,8 +142,7 @@ mod RemovedCollection_ {
 foreign_class!(class RemovedCollection {
     self_type RemovedCollection;
     private constructor = empty;
-    fn RemovedCollection_::uid(&self) -> String {
-    }
+    fn RemovedCollection_::uid(&self) -> String;
 });
 
 type CollectionListResponse = etebase::CollectionListResponse<Collection>;
