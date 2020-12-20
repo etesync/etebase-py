@@ -12,6 +12,10 @@ This package is implemented in Rust and exposes a Python API for people to use.
 [![Build Status](https://github.com/etesync/etebase-py/workflows/Build/badge.svg)](https://github.com/etesync/etebase-py/actions/)
 [![Chat on freenode](https://img.shields.io/badge/chat-IRC%20|%20Matrix%20|%20Web-blue.svg)](https://www.etebase.com/community-chat/)
 
+# Documentation
+
+In addition to the API documentation, there are docs available at https://docs.etebase.com
+
 # Build
 
 ## Install deps
