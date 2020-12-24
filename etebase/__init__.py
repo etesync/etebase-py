@@ -288,6 +288,9 @@ class ItemManager:
         items = list(map(lambda x: x._inner, items))
         return ItemListResponse(self._inner.fetch_updates(items, _inner(fetch_options)))
 
+    def fetch_multi(self, items_uids, fetch_options=None):
+        return ItemListResponse(self._inner.fetch_multi(items_uids, _inner(fetch_options)))
+
     def batch(self, items, deps=None, fetch_options=None):
         items = list(map(lambda x: x._inner, items))
         deps = list(map(lambda x: x._inner, deps)) if deps is not None else None

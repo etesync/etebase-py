@@ -381,6 +381,12 @@ mod ItemManager_ {
         mgr.fetch_updates(items, fetch_options.as_ref())
     }
 
+    pub fn fetch_multi(mgr: &ItemManager, items: Vec<String>, fetch_options: Option<FetchOptions>) -> Result<ItemListResponse, Error> {
+        let fetch_options = fetch_options.as_ref().map(|x| x.to_fetch_options());
+        let items = items.iter().map(|x| &**x);
+        mgr.fetch_multi(items, fetch_options.as_ref())
+    }
+
     pub fn batch(mgr: &ItemManager, items: Vec<Item>, deps: Option<Vec<Item>>, fetch_options: Option<FetchOptions>) -> Result<(), Error> {
         let fetch_options = fetch_options.as_ref().map(|x| x.to_fetch_options());
         let items_v: Vec<_> = items.iter().map(|x| x.inner.lock().unwrap()).collect();
@@ -439,6 +445,7 @@ foreign_class!(class ItemManager {
     fn ItemManager_::list(&self, fetch_options: Option<FetchOptions>) -> Result<ItemListResponse, Error>;
     fn ItemManager_::item_revisions(&self, item: Item, fetch_options: Option<FetchOptions>) -> Result<ItemRevisionsListResponse, Error>;
     fn ItemManager_::fetch_updates(&self, items: Vec<Item>, fetch_options: Option<FetchOptions>) -> Result<ItemListResponse, Error>;
+    fn ItemManager_::fetch_multi(&self, items: Vec<String>, fetch_options: Option<FetchOptions>) -> Result<ItemListResponse, Error>;
     fn ItemManager_::batch(&self, items: Vec<Item>, deps: Option<Vec<Item>>, fetch_options: Option<FetchOptions>) -> Result<(), Error>;
     fn ItemManager_::transaction(&self, items: Vec<Item>, deps: Option<Vec<Item>>, fetch_options: Option<FetchOptions>) -> Result<(), Error>;
     fn ItemManager_::download_content(&self, item: &mut Item) -> Result<(), Error>;
