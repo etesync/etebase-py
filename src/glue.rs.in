@@ -409,6 +409,14 @@ mod ItemManager_ {
         }
     }
 
+    pub fn download_content(this: &ItemManager, item: &mut Item) -> Result<(), Error> {
+        this.download_content(&mut item.inner.lock().unwrap())
+    }
+
+    pub fn upload_content(this: &ItemManager, item: &Item) -> Result<(), Error> {
+        this.upload_content(&item.inner.lock().unwrap())
+    }
+
     pub fn cache_load(this: &ItemManager, cached: &[u8]) -> Result<Item, Error> {
         Ok(Item::new(this.cache_load(cached)?))
     }
@@ -433,6 +441,8 @@ foreign_class!(class ItemManager {
     fn ItemManager_::fetch_updates(&self, items: Vec<Item>, fetch_options: Option<FetchOptions>) -> Result<ItemListResponse, Error>;
     fn ItemManager_::batch(&self, items: Vec<Item>, deps: Option<Vec<Item>>, fetch_options: Option<FetchOptions>) -> Result<(), Error>;
     fn ItemManager_::transaction(&self, items: Vec<Item>, deps: Option<Vec<Item>>, fetch_options: Option<FetchOptions>) -> Result<(), Error>;
+    fn ItemManager_::download_content(&self, item: &mut Item) -> Result<(), Error>;
+    fn ItemManager_::upload_content(&self, item: &Item) -> Result<(), Error>;
     fn ItemManager_::cache_load(&self, cached: &[u8]) -> Result<Item, Error>;
     fn ItemManager_::cache_save(&self, item: &Item) -> Result<Vec<u8>, Error>;
     fn ItemManager_::cache_save_with_content(&self, item: &Item) -> Result<Vec<u8>, Error>;
@@ -541,6 +551,10 @@ impl Item {
         self.inner.lock().unwrap().delete()
     }
 
+    pub fn is_missing_content(&self) -> bool {
+        self.inner.lock().unwrap().is_missing_content()
+    }
+
     pub fn is_deleted(&self) -> bool {
         self.inner.lock().unwrap().is_deleted()
     }
@@ -565,6 +579,7 @@ foreign_class!(
         fn Item::content(&self) -> Result<Vec<u8>, Error>; alias get_content;
         fn Item::delete(&mut self) -> Result<(), Error>;
         fn Item::is_deleted(&self) -> bool;
+        fn Item::is_missing_content(&self) -> bool;
         fn Item::uid(&self) -> String; alias get_uid;
         fn Item::etag(&self) -> String; alias get_etag;
     }
