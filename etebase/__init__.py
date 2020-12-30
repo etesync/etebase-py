@@ -302,6 +302,12 @@ class ItemManager:
         deps_inner = list(map(lambda x: x._inner, deps)) if deps is not None else None
         self._inner.transaction(items_inner, deps_inner, _inner(fetch_options))
 
+    def download_content(self, item: "Item"):
+        self._inner.download_content(item._inner)
+
+    def upload_content(self, item: "Item"):
+        self._inner.upload_content(item._inner)
+
     def cache_load(self, cached: bytes):
         return Item(self._inner.cache_load(cached))
 
@@ -424,6 +430,10 @@ class Item:
     @property
     def deleted(self):
         return self._inner.is_deleted()
+
+    @property
+    def missing_content(self):
+        return self._inner.is_missing_content()
 
     @property
     def uid(self):
