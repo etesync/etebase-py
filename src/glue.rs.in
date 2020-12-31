@@ -37,7 +37,7 @@ use etebase::{
 use crate::fixes::FetchOptions;
 
 foreign_class!(class Utils {
-    fn from_base64(string: &str) -> Result<Vec<u8>, Error>;
+    fn from_base64(content: &str) -> Result<Vec<u8>, Error>;
     fn to_base64(bytes: &[u8]) -> Result<String, Error>;
     fn randombytes(size: usize) -> Vec<u8>;
     fn pretty_fingerprint(content: &[u8]) -> String;
