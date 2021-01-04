@@ -17,6 +17,7 @@ jobs:
        CIBW_BUILD_VERBOSITY: 1
        CIBW_BEFORE_ALL_LINUX: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y && yum install -y openssl-devel"
        CIBW_BEFORE_BUILD_LINUX: "pip3 install --upgrade keyrings.alt"
+       CIBW_ARCHS_LINUX: "auto aarch64"
        CIBW_ENVIRONMENT: 'PATH="$PATH:$HOME/.cargo/bin"'
        CIBW_SKIP: "cp27-* cp34-* cp35-* pp* *-win32"
 
@@ -44,6 +45,13 @@ jobs:
         name: Setup env when not using docker
         run: |
           python -m pip install --upgrade wheel setuptools setuptools-rust
+
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: arm64
 
       - uses: actions/setup-python@v2
         name: Install Python
