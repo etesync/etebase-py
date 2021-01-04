@@ -48,7 +48,8 @@ jobs:
         run: |
           python -m pip install --upgrade wheel setuptools setuptools-rust
 
-      - name: Set up QEMU
+      - if: runner.os == 'Linux'
+        name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v1
         with:
