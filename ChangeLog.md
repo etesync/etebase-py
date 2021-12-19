@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.31.4
+* Disable musllinux which currently fails build
+
 ## Version 0.31.3
 * Build for Python 3.10
 
