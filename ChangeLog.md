@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.31.3
+* Build for Python 3.10
+
 ## Version 0.31.2
 * Fix crashes with Python 3.9
 
