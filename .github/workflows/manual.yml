@@ -19,7 +19,7 @@ jobs:
        CIBW_BEFORE_BUILD_LINUX: "pip3 install --upgrade keyrings.alt"
        CIBW_ARCHS_LINUX: "auto aarch64"
        CIBW_ENVIRONMENT: 'PATH="$PATH:$HOME/.cargo/bin"'
-       CIBW_SKIP: "cp27-* cp34-* cp35-* pp* *-win32"
+       CIBW_SKIP: "cp27-* cp34-* cp35-* cp36-* pp* *-win32"
 
     steps:
       - uses: actions/checkout@v2
@@ -39,7 +39,7 @@ jobs:
 
       - if: runner.os != 'Linux'
         run: |
-            echo "CIBW_SKIP=$CIBW_SKIP cp36-*" >> $GITHUB_ENV # Also skip Python 3.6 as build is too slow
+            echo "CIBW_SKIP=$CIBW_SKIP cp37-*" >> $GITHUB_ENV # Also skip Python 3.7 as build is too slow
 
       - if: runner.os != 'Linux'
         name: Setup env when not using docker
@@ -61,8 +61,7 @@ jobs:
 
       - name: Install cibuildwheel
         run: |
-          # Install cibuildwheel from git for CIBW_ARCHS_LINUX support
-          python -m pip install git+https://github.com/joerick/cibuildwheel@6f28d7851fa3380e8188a12d710bcae4ff233314
+          python -m pip install cibuildwheel
 
       - name: Build wheels
         run: |
