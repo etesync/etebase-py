@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.31.5
+* Bump flapigen and cpython deps to potentially fix crashes with Python 3.9 and 3.10
+
 ## Version 0.31.4
 * Disable musllinux which currently fails build
 
