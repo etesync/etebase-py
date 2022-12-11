@@ -197,7 +197,7 @@ dependencies = [
 
 [[package]]
 name = "etebase-python"
-version = "0.31.5"
+version = "0.31.6"
 dependencies = [
  "cpython",
  "env_logger",

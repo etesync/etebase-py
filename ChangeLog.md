@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.31.6
+* Bump multiple dependencies to fix building with Rust 1.64
+
 ## Version 0.31.5
 * Bump flapigen and cpython deps to potentially fix crashes with Python 3.9 and 3.10
 
