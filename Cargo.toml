@@ -19,5 +19,5 @@ log = "^0.4.6"
 
 [dependencies]
 cpython = { version = "0.7", features = ["extension-module"] }
-openssl = { version = "0.10.30", features = ["vendored"] }
+openssl = { version = "0.10.55", features = ["vendored"] }
 etebase = { version = "^0.5.1" }
