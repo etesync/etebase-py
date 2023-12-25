@@ -19,7 +19,7 @@ jobs:
        CIBW_BEFORE_BUILD_LINUX: "pip3 install --upgrade keyrings.alt"
        CIBW_ARCHS_LINUX: "auto aarch64"
        CIBW_ENVIRONMENT: 'PATH="$PATH:$HOME/.cargo/bin"'
-       CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* pp* *-win32 *-musllinux*"
+       CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* pp* *-win32 *-musllinux* *_i686"
 
     steps:
       - uses: actions/checkout@v2
