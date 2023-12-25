@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.31.7
+* Bump etebase dependency to latest
+
 ## Version 0.31.6
 * Bump multiple dependencies to fix building with Rust 1.64
 
