@@ -13,7 +13,7 @@ readme = "README.md"
 crate-type = ["cdylib"]
 
 [build-dependencies]
-flapigen = { git = "https://github.com/Dushistov/flapigen-rs", rev = "2bf1533140ff54239cbc659d70b071ac8ed5cd2a" }
+flapigen = "^0.6"
 env_logger = "^0.7"
 log = "^0.4.6"
 
