@@ -19,7 +19,7 @@ jobs:
        CIBW_BEFORE_BUILD_LINUX: "pip3 install --upgrade keyrings.alt"
        CIBW_ARCHS_LINUX: "auto aarch64"
        CIBW_ENVIRONMENT: 'PATH="$PATH:$HOME/.cargo/bin"'
-       CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* pp* *-win32 *-musllinux* *_i686"
+       CIBW_SKIP: "cp39-* pp* *-win32 *-musllinux* *_i686"
 
     steps:
       - uses: actions/checkout@v2
@@ -39,7 +39,7 @@ jobs:
 
       - if: runner.os != 'Linux'
         run: |
-            echo "CIBW_SKIP=$CIBW_SKIP cp310-*" >> $GITHUB_ENV # Also skip Python 3.7 as build is too slow
+            echo "CIBW_SKIP=$CIBW_SKIP cp310-*" >> $GITHUB_ENV
 
       - if: runner.os != 'Linux'
         name: Setup env when not using docker

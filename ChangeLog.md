@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.31.8
+* Build for Python 3.12
+
 ## Version 0.31.7
 * Bump etebase dependency to latest
 
