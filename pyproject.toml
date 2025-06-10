@@ -1,2 +1,22 @@
+[project]
+name = "etebase-python"
+version = "0.31.9"
+description = "Python bindings for Etebase"
+license = { file="LICENSE" }
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = [
+    "wheel",
+    "setuptools", 
+    "setuptools-rust"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License"
+]
+
 [build-system]
 requires = ["setuptools", "wheel", "setuptools-rust"]
+
+[project.urls]
+Homepage = "https://github.com/etesync/etebase-py"
