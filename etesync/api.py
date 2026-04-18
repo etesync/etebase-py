@@ -49,7 +49,7 @@ class EteSync:
         self.user, created = cache.User.get_or_create(username=self.email)
 
     def _init_db(self, db_path):
-        from playhouse.sqlite_ext import SqliteExtDatabase
+        from peewee import SqliteDatabase as SqliteExtDatabase
 
         if db_path is None:
             db_path = os.path.join(os.path.expanduser('~'), '.etesync', 'data.db')
