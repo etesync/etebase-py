@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.32.0
+* Ship a single abi3 wheel per platform that supports Python 3.9 and newer
+* Port bindings from flapigen/rust-cpython to PyO3, fixing crashes with newer Python versions (e.g. 3.14)
+* Drop support for Python 3.8
+
 ## Version 0.31.8
 * Build for Python 3.12
 
