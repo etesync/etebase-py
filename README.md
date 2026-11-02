@@ -21,11 +21,15 @@ In addition to the API documentation, there are docs available at https://docs.e
 ## Install deps
 
 ```
-pip install wheel setuptools setuptools-rust
+pip install maturin
 ```
 
 ## Build
 
 ```
-python setup.py bdist_wheel
+maturin build --release
 ```
+
+The extension is built against the Python stable ABI (abi3), so the resulting wheel works on Python 3.9 and newer.
+
+For development, `maturin develop` builds and installs the package into the current virtualenv.

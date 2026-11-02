@@ -10,14 +10,10 @@ license = "BSD-3-Clause"
 readme = "README.md"
 
 [lib]
+name = "etebase_python"
 crate-type = ["cdylib"]
 
-[build-dependencies]
-flapigen = "^0.6"
-env_logger = "^0.7"
-log = "^0.4.6"
-
 [dependencies]
-cpython = { version = "0.7", features = ["extension-module"] }
+pyo3 = { version = "0.30", features = ["extension-module", "abi3-py39"] }
 openssl = { version = "0.10.55", features = ["vendored"] }
 etebase = { version = "^0.6.1" }
