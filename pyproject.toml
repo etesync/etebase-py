@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "etebase"
-version = "0.31.9"
+version = "0.32.0"
 description = "Python client library for Etebase"
 readme = "README.md"
 license = { text = "BSD-3-Clause" }
